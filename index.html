@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vikranth Bandaru | AI & Data Science Portfolio</title>
     <meta name="description"
-        content="Portfolio of Vikranth Bandaru - AI/ML Engineer and Data Scientist specializing in LLMs, NLP, and Computer Vision.">
-
-    <!-- Fonts -->
+        content="Vikranth Bandaru - AI/ML Engineer specializing in LLMs, NLP, and full-stack data product development. Building scalable generative AI solutions.">
+    <meta name="keywords"
+        content="AI Engineer, Machine Learning, NLP, LLMs, Data Science, Python, RAG, Vikranth Bandaru">
+    <meta name="author" content="Vikranth Bandaru">
+    <title>Vikranth Bandaru | AI/ML Engineer</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-
-    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -23,43 +23,47 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="#" class="logo">VB.</a>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
-                ☰
-            </button>
+            <div class="logo">VB</div>
             <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#awards" class="nav-link">Awards</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                ☰
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="container hero-content">
-            <div class="hero-text reveal">
-                <p class="hero-greeting">Hello, I'm</p>
-                <h1 class="hero-title">Vikranth Bandaru</h1>
-                <h2 class="hero-subtitle">AI/ML Engineer & Data Scientist</h2>
-                <p class="hero-description">
-                    Transforming complex data into actionable insights and building intelligent systems.
-                    Specializing in Large Language Models (LLMs), NLP, and Computer Vision.
-                </p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#projects" class="btn btn-secondary">View My Work</a>
-                    <a href="assets/Vikranth_Bandaru_Resume.pdf" download class="btn btn-resume">
-                        Download Resume
-                    </a>
+    <section class="hero reveal" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="hero-greeting">Hi, I'm</p>
+                    <h1 class="hero-title">Vikranth Bandaru</h1>
+                    <h2 class="hero-subtitle">AI/ML Engineer & Data Scientist</h2>
+                    <p class="hero-description">
+                        Building real-world, scalable generative AI solutions that solve complex business problems.
+                        Specializing in LLMs, NLP, RAG systems, and full-stack data product development.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="Vikranth_Bandaru_Resume.pdf" download class="btn btn-resume">📄 Download Resume</a>
+                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image-wrapper reveal">
-                <img src="assets/profile.jpg" alt="Vikranth Bandaru" class="hero-image">
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="assets/profile.jpg" alt="Vikranth Bandaru" class="profile-image">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -70,28 +74,33 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <p class="about-text">
-                    I am a passionate AI/ML Engineer with a Master's in Artificial Intelligence from the University at
-                    Buffalo.
-                    My journey involves bridging the gap between theoretical research and real-world applications.
-                    I thrive on solving challenging problems using deep learning, natural language processing, and
-                    computer vision.
+                    I am a driven AI/ML engineer and graduate student with a passion for building real-world,
+                    scalable generative AI solutions that solve complex business problems. With proven experience
+                    as a Data Scientist at Genpact and hands-on expertise in LLMs, NLP, and full-stack data product
+                    development, I excel at turning cutting-edge research into business impact.
                 </p>
                 <p class="about-text">
-                    With experience at companies like Vaspian and Genpact, I have developed scalable AI solutions,
-                    optimized machine learning pipelines, and delivered impactful data-driven products.
+                    I hold a B.Tech in CSE (AI/ML) from SRMIST, ranked AIR 270 in SRMJEE 2019 and awarded a
+                    coveted 100% scholarship for my undergraduate education. Currently pursuing my MS in Artificial
+                    Intelligence at the University at Buffalo, building advanced document intelligence engines and
+                    exploring the frontiers of LLMs.
                 </p>
                 <div class="stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card reveal">
                         <span class="stat-number">2+</span>
                         <span class="stat-label">Years Experience</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Projects Completed</span>
+                    <div class="stat-card reveal">
+                        <span class="stat-number">86%</span>
+                        <span class="stat-label">ML Forecast Accuracy</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Research Papers</span>
+                    <div class="stat-card reveal">
+                        <span class="stat-number">50%</span>
+                        <span class="stat-label">Time Reduction</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <span class="stat-number">12K+</span>
+                        <span class="stat-label">Documents Processed</span>
                     </div>
                 </div>
             </div>
@@ -103,42 +112,58 @@
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Languages & Core</h3>
+                <div class="skill-category reveal">
+                    <h3>Languages & Databases</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">Java</span>
                         <span class="skill-tag">R</span>
-                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">C/C++</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Firebase</span>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category reveal">
                     <h3>AI & Machine Learning</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">LLMs</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Deep Learning</span>
                         <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">TensorFlow</span>
                         <span class="skill-tag">Keras</span>
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">NLTK</span>
-                        <span class="skill-tag">Spacy</span>
-                        <span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">HuggingFace</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">RAG</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Data & Tools</h3>
+                <div class="skill-category reveal">
+                    <h3>Cloud & Tools</h3>
                     <div class="skill-tags">
+                        <span class="skill-tag">GCP</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">PySpark</span>
+                        <span class="skill-tag">Vertex AI</span>
+                        <span class="skill-tag">Document AI</span>
+                        <span class="skill-tag">Power BI</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal">
+                    <h3>Frameworks & Libraries</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">Streamlit</span>
                         <span class="skill-tag">Pandas</span>
                         <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Matplotlib</span>
-                        <span class="skill-tag">Tableau</span>
-                        <span class="skill-tag">Power BI</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">SpaCy</span>
+                        <span class="skill-tag">NLTK</span>
                     </div>
                 </div>
             </div>
@@ -150,71 +175,99 @@
         <div class="container">
             <h2 class="section-title">Professional Experience</h2>
             <div class="timeline">
-                <!-- Experience 1 -->
-                <div class="timeline-item">
+                <!-- Vaspian -->
+                <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="company-header">
                             <img src="assets/vaspian_logo.png" alt="Vaspian" class="company-logo">
                             <div>
-                                <h3 class="timeline-title">Data Scientist Intern</h3>
-                                <div class="timeline-company">Vaspian, Buffalo, NY</div>
+                                <h3 class="timeline-title">AI Product Development Intern</h3>
+                                <p class="timeline-company">Vaspian</p>
                             </div>
                         </div>
-                        <span class="timeline-date">June 2024 – August 2024</span>
+                        <p class="timeline-date">Sep 2024 – Present</p>
                         <ul class="timeline-highlights">
-                            <li>Developed an automated speech-to-text pipeline using Python and OpenAI Whisper, reducing
-                                transcription errors by 40%.</li>
-                            <li>Engineered a sentiment analysis model using NLTK and VADER, processing 10,000+ customer
-                                calls to identify churn risks.</li>
-                            <li>Created interactive dashboards in Tableau to visualize call metrics, improving
-                                operational efficiency by 25%.</li>
+                            <li>Developed an AI-powered FAQ automation RAG system using LLMs (Llama 3.3 70B, Llama 4
+                                Scout)
+                                and Qdrant to convert 12,000+ raw call transcript JSON files into structured
+                                problem–solution knowledge</li>
+                            <li>Reduced customer problem-resolution time by 50% (from 6 minutes to 3 minutes) through
+                                instant, accurate chatbot answers</li>
+                            <li>Integrated MCP servers and Dockerized services with Git-based version control, improving
+                                deployment reliability and iteration speed</li>
+                            <li>Built an ElevenLabs conversational AI agent linked to Airtable via webhooks, automating
+                                webinar invites and customer response tracking</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Experience 2 -->
-                <div class="timeline-item">
+                <!-- Genpact - Data Scientist -->
+                <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="company-header">
                             <img src="assets/genpact_logo.png" alt="Genpact" class="company-logo">
                             <div>
-                                <h3 class="timeline-title">Consultant (Data Science)</h3>
-                                <div class="timeline-company">Genpact, Hyderabad, India</div>
+                                <h3 class="timeline-title">Data Scientist</h3>
+                                <p class="timeline-company">Genpact</p>
                             </div>
                         </div>
-                        <span class="timeline-date">February 2023 – November 2023</span>
+                        <p class="timeline-date">Jul 2023 – Aug 2024</p>
                         <ul class="timeline-highlights">
-                            <li>Led the migration of legacy data systems to Azure Cloud, optimizing data retrieval
-                                speeds by 30%.</li>
-                            <li>Implemented a predictive maintenance model using Random Forest, reducing equipment
-                                downtime by 15%.</li>
-                            <li>Collaborated with cross-functional teams to deploy ML models into production using
-                                Docker and Kubernetes.</li>
+                            <li>Engineered ML pipeline for "Price-Pack Architecture" using PySpark, LLMs, and elasticity
+                                modeling to simulate over 1,000 pricing scenarios across 25+ markets and 6,000+ SKUs for
+                                Nestlé Purina, achieving 86% forecast accuracy</li>
+                            <li>Developed Data Structurizer for invoice query processing: automated OCR extraction,
+                                performed ETL, stored in vector DB, and utilized GPT-4o API with LangChain for efficient
+                                invoice search, achieving 80% query-response accuracy</li>
+                            <li>Built self-serve invoice Q&A chatbot for Genworth and Unilever using GCP Document AI,
+                                enabling rapid, accurate answers from invoice content and reducing manual lookup effort
+                            </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Experience 3 -->
-                <div class="timeline-item">
+                <!-- Genpact - Software Engineering Intern -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="company-header">
+                            <img src="assets/genpact_logo.png" alt="Genpact" class="company-logo">
+                            <div>
+                                <h3 class="timeline-title">Software Engineering Intern</h3>
+                                <p class="timeline-company">Genpact</p>
+                            </div>
+                        </div>
+                        <p class="timeline-date">Mar 2023 – Jul 2023</p>
+                        <ul class="timeline-highlights">
+                            <li>Designed and deployed a web-based mentor-mentee platform for Hopeworks NGO using React,
+                                SQL,
+                                and Python, increasing matching engagement by 30%</li>
+                            <li>Led development of a full-stack legal services platform using React, Node.js, MongoDB,
+                                and
+                                Firebase, integrating versioned docs, authentication, chat, and analytics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- HighRadius -->
+                <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="company-header">
                             <img src="assets/highradius_logo.png" alt="HighRadius" class="company-logo">
                             <div>
-                                <h3 class="timeline-title">Data Science Intern</h3>
-                                <div class="timeline-company">HighRadius, Hyderabad, India</div>
+                                <h3 class="timeline-title">Product and Engineering Intern</h3>
+                                <p class="timeline-company">HighRadius</p>
                             </div>
                         </div>
-                        <span class="timeline-date">January 2022 – January 2023</span>
+                        <p class="timeline-date">Jan 2022 – Apr 2022</p>
                         <ul class="timeline-highlights">
-                            <li>Built a cash flow forecasting model using ARIMA and LSTM, improving forecast accuracy by
-                                20%.</li>
-                            <li>Automated data cleaning workflows using Python and Pandas, saving 10+ hours of manual
-                                work weekly.</li>
-                            <li>Conducted exploratory data analysis (EDA) on large financial datasets to uncover key
-                                revenue drivers.</li>
+                            <li>Built and deployed an AI-enabled fintech cloud application with React, MongoDB, and
+                                Python-based ML models (XGBoost, Random Forest), improving efficiency by 30%</li>
+                            <li>Transformed raw, unstructured invoices into structured data, engineered features, and
+                                implemented ML models to identify the true invoice date among multiple fields</li>
                         </ul>
                     </div>
                 </div>
@@ -227,75 +280,83 @@
         <div class="container">
             <h2 class="section-title">Education</h2>
             <div class="timeline">
-                <!-- Education 1 -->
-                <div class="timeline-item">
+                <!-- UB -->
+                <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="company-header">
                             <img src="assets/ub_logo.png" alt="University at Buffalo" class="company-logo">
                             <div>
-                                <h3 class="timeline-title">Master of Science in Artificial Intelligence</h3>
-                                <div class="timeline-company">University at Buffalo, SUNY</div>
+                                <h3 class="timeline-title">Master's, Artificial Intelligence</h3>
+                                <p class="timeline-company">University at Buffalo - SUNY</p>
                             </div>
                         </div>
-                        <span class="timeline-date">January 2024 – May 2025</span>
-                        <p><strong>GPA:</strong> 3.8/4.0</p>
-                        <p><strong>Coursework:</strong> Machine Learning, Deep Learning, Natural Language Processing,
-                            Computer Vision, Data Mining, Algorithm Analysis.</p>
+                        <p class="timeline-date">Aug 2024 - Dec 2025</p>
+                        <p class="education-coursework" style="margin-top: 1rem; color: var(--text-secondary);">
+                            <strong>Relevant Coursework:</strong> Machine Learning, NLP, Reinforcement Learning, Pattern
+                            Recognition, Info Retrieval, Data Intensive Computing, Analysis of Algorithms
+                        </p>
                     </div>
                 </div>
-
-                <!-- Education 2 -->
-                <div class="timeline-item">
+                <!-- SRM -->
+                <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="company-header">
                             <img src="assets/srm_logo.png" alt="SRM Institute of Science and Technology"
                                 class="company-logo">
                             <div>
-                                <h3 class="timeline-title">Bachelor of Technology in Computer Science (AI/ML)</h3>
-                                <div class="timeline-company">SRM Institute of Science and Technology</div>
+                                <h3 class="timeline-title">Bachelor's, Computer Science (AI/ML)</h3>
+                                <p class="timeline-company">SRM Institute of Science and Technology</p>
                             </div>
                         </div>
-                        <span class="timeline-date">June 2019 – May 2023</span>
-                        <p><strong>GPA:</strong> 3.9/4.0</p>
-                        <p><strong>Coursework:</strong> Python, Artificial Intelligence, Applied Machine Learning,
-                            Statistical Machine Learning, NLP, Digital Image Processing, Computer Architecture, Advanced
-                            Calculus, Probability and Queueing Theory, Operating Systems, DBMS, Compilers</p>
+                        <p class="timeline-date">Jun 2019 - May 2023</p>
+                        <p class="education-coursework" style="margin-top: 1rem; color: var(--text-secondary);">
+                            <strong>Relevant Coursework:</strong> Python, Artificial Intelligence, Applied Machine
+                            Learning, Statistical Machine Learning, NLP, Digital Image Processing, Computer
+                            Architecture, Advanced Calculus, Probability and Queueing Theory, Operating Systems, DBMS,
+                            Compilers
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Awards Section -->
+    <!-- Honors & Awards Section -->
     <section class="awards reveal" id="awards">
         <div class="container">
             <h2 class="section-title">Honors & Awards</h2>
             <div class="awards-grid">
-                <div class="award-card"
-                    onclick="openLightbox('assets/award_dedication.jpeg', 'Best Dedication & Persistency')">
-                    <div class="award-image">
-                        <img src="assets/award_dedication.jpeg" alt="Best Dedication & Persistency Award">
-                    </div>
+                <!-- Award 1: Best Dedication -->
+                <div class="award-card reveal">
+                    <img src="assets/award_dedication.jpeg" alt="Best Dedication & Persistency Award"
+                        class="award-image">
                     <div class="award-content">
-                        <h3>Best Dedication & Persistency</h3>
-                        <p class="award-issuer">Genpact - YoDA Recognition</p>
-                        <p class="award-date">December 2023</p>
-                        <p class="award-desc">Awarded for exhibiting unwavering commitment, resilience, and a determined
-                            attitude in the face of challenges.</p>
+                        <h3 class="award-title">Best Dedication & Persistency</h3>
+                        <p class="award-meta">Genpact YoDA Recognition | Dec 2023</p>
+                        <p class="award-description">
+                            Honored with the Best Dedication & Persistency award as part of Genpact’s "Best Yoda"
+                            recognition, celebrating unwavering resilience, consistent effort, and a never-give-up
+                            spirit in the face of challenges. This award recognized my commitment to going above and
+                            beyond, fostering a culture of perseverance, and contributing meaningfully to the team’s
+                            success.
+                        </p>
                     </div>
                 </div>
-                <div class="award-card" onclick="openLightbox('assets/award_bright_beginner.jpg', 'Bright Beginner')">
-                    <div class="award-image">
-                        <img src="assets/award_bright_beginner.jpg" alt="Bright Beginner Award">
-                    </div>
+
+                <!-- Award 2: Bright Beginner -->
+                <div class="award-card reveal">
+                    <img src="assets/award_bright_beginner.jpg" alt="Bright Beginner Award" class="award-image">
                     <div class="award-content">
-                        <h3>Bright Beginner</h3>
-                        <p class="award-issuer">Genpact - Futureero Internship Program</p>
-                        <p class="award-date">June 2023</p>
-                        <p class="award-desc">Recognized for humble beginnings and overcoming difficult challenges as a
-                            foundation for great accomplishment.</p>
+                        <h3 class="award-title">Bright Beginner</h3>
+                        <p class="award-meta">Genpact Futureero Internship Program | Jun 2023</p>
+                        <p class="award-description">
+                            Received the Bright Beginner award during Genpact’s prestigious Futureero Internship
+                            Program, recognizing my performance, adaptability, and learning mindset early in my
+                            professional journey. This recognition honors individuals who stand out by overcoming steep
+                            learning curves, embracing new challenges with curiosity and grit.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -313,9 +374,11 @@
                     <div class="project-content">
                         <h3 class="project-title">LLMs in Social Sciences</h3>
                         <p class="project-description">
-                            Developed a multilingual policy analysis system using Python, Pandas, NLTK, DistilBERT,
-                            RoBERTa, and GPT-O2 to process English/Hindi sources. Achieved 87% accuracy in sentiment and
-                            stance detection for USA–India–Canada policy trends.
+                            Developed a multilingual policy analysis system using Python, Pandas, NLTK,
+                            DistilBERT,
+                            RoBERTa, and GPT-O2 to process English/Hindi sources. Achieved 87% accuracy in
+                            sentiment
+                            and stance detection for USA–India–Canada policy trends.
                         </p>
                         <div class="project-tech">
                             <span class="tech-tag">Python</span>
@@ -340,8 +403,10 @@
                     <div class="project-content">
                         <h3 class="project-title">Data-Driven Wikipedia Q&A Chatbot</h3>
                         <p class="project-description">
-                            Developed and deployed a chatbot using Python, Streamlit, RAG with OpenAI GPT, and Apache
-                            Solr to index 50K+ documents. Achieved 92% response accuracy with an interactive chat
+                            Developed and deployed a chatbot using Python, Streamlit, RAG with OpenAI GPT, and
+                            Apache
+                            Solr to index 50K+ documents. Achieved 92% response accuracy with an interactive
+                            chat
                             interface and analytics dashboard.
                         </p>
                         <div class="project-tech">
@@ -367,8 +432,10 @@
                     <div class="project-content">
                         <h3 class="project-title">Social Distance Detector</h3>
                         <p class="project-description">
-                            Developed an automated social distancing detection system using deep learning, tracking
-                            real-time compliance in crowded areas with 90% accuracy. Integrated YOLOv4 object detection
+                            Developed an automated social distancing detection system using deep learning,
+                            tracking
+                            real-time compliance in crowded areas with 90% accuracy. Integrated YOLOv4 object
+                            detection
                             and OpenCV, processing video streams at 30 FPS, ensuring responsive monitoring.
                         </p>
                         <div class="project-tech">
@@ -399,9 +466,9 @@
                 <h3 class="publication-title">Person Re-identification from Video using Hybrid Approach</h3>
                 <p class="publication-meta">IEEE ICAECT 2023 | May 2023</p>
                 <p class="publication-description">
-                    This paper uses GANs and computer vision for person re-identification in video, improving matching
-                    accuracy in noisy settings. Published in IEEE Xplore and presented at the International Conference
-                    on Advances in Electrical, Computing, Communication and Sustainable Technologies.
+                    This paper uses GANs and computer vision for person re-identification in video, improving
+                    matching accuracy in noisy settings. Published in IEEE Xplore and presented at the International
+                    Conference on Advances in Electrical, Computing, Communication and Sustainable Technologies.
                 </p>
                 <div class="project-links">
                     <a href="https://ieeexplore.ieee.org/document/10118106" target="_blank" class="project-link">
@@ -464,15 +531,7 @@
         ↑
     </div>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
-        <div id="caption"></div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 
 </html>
-<!-- Trigger redeploy -->
