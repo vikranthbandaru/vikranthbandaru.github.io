@@ -2,12 +2,10 @@
 
 A modern, responsive personal portfolio website built to showcase my experience in AI/ML, Data Science, and Software Engineering.
 
-![Portfolio Preview](assets/profile.jpg)
-*(Note: Replace with a screenshot of your site if available)*
+![Portfolio Preview](assets/portfolio.jpg)
 
 ## 🚀 Live Demo
-[View Live Site](https://vikranthbandaru.github.io/portfolio/)
-*(Update the link above with your actual GitHub Pages URL)*
+[View Live Site](https://vikranthbandaru.github.io/)
 
 ## ✨ Features
 - **Modern Design**: Sophisticated Navy Blue & Gold color theme.
