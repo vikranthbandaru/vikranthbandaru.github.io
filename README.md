@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built to showcase my experience in AI/ML, Data Science, and Software Engineering.
 
-![Portfolio Preview](assets/portfolio.jpg)
+![Portfolio Preview](assets/download.png)
 
 ## 🚀 Live Demo
 [View Live Site](https://vikranthbandaru.github.io/)
