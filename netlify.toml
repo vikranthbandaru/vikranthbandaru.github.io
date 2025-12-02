@@ -1,0 +1,6 @@
+[build]
+  # publish directory for this static site; dot means repo root
+  publish = "."
+
+# No build command required since this site contains static HTML/CSS/JS
+# If you add a static site generator later, set 'command' to your build (e.g. "npm run build")
