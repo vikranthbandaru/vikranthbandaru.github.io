@@ -1150,6 +1150,39 @@ section {
     margin-top: 1rem;
 }
 
+/* === DARK MODE OVERRIDES === */
+body.dark-mode .skill-tag,
+body.dark-mode .btn-resume,
+body.dark-mode .social-link,
+body.dark-mode .company-logo {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-glass);
+}
+
+body.dark-mode .skill-tag:hover,
+body.dark-mode .btn-resume:hover,
+body.dark-mode .social-link:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+body.dark-mode .footer {
+    background: var(--bg-primary);
+    border-top-color: var(--border-glass);
+}
+
+body.dark-mode .contact-item {
+    background: var(--bg-glass);
+    border-color: var(--border-glass);
+}
+
+body.dark-mode .contact-item:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--accent-primary);
+}
+
 /* === MEDIA QUERIES === */
 @media (max-width: 768px) {
     :root {
