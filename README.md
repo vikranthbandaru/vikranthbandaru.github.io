@@ -35,7 +35,7 @@ A modern, responsive personal portfolio website built to showcase my experience 
 └── README.md           # Project documentation
 ```
 
-## 🏃‍♂️ How to Run Locally
+##  How to Run Locally
 1.  **Clone the repository**:
     ```bash
     git clone https://github.com/vikranthbandaru/portfolio.git
@@ -49,9 +49,9 @@ A modern, responsive personal portfolio website built to showcase my experience 
 
 ## Contact
 **Vikranth Bandaru**
-- 📧 Email: [bandaruvikranth@gmail.com](mailto:bandaruvikranth@gmail.com)
-- 💼 LinkedIn: [vikranthbandaru](https://www.linkedin.com/in/vikranthbandaru/)
-- 🐙 GitHub: [vikranthbandaru](https://github.com/vikranthbandaru)
+-  Email: [bandaruvikranth@gmail.com](mailto:bandaruvikranth@gmail.com)
+-  LinkedIn: [vikranthbandaru](https://www.linkedin.com/in/vikranthbandaru/)
+-  GitHub: [vikranthbandaru](https://github.com/vikranthbandaru)
 
 ---
 © 2025 Vikranth Bandaru. All Rights Reserved.
