@@ -1152,7 +1152,7 @@ section {
 /* Testimonials track - horizontal scroll container */
 .testimonials-track {
     display: grid;
-    grid-template-columns: repeat(3, calc(50% - var(--spacing-md)));
+    grid-template-columns: repeat(3, 100%);
     gap: var(--spacing-xl);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
