@@ -2,14 +2,12 @@
 
 A modern, responsive personal portfolio website built to showcase my experience in AI/ML, Data Science, and Software Engineering.
 
-![Portfolio Preview](assets/profile.jpg)
-*(Note: Replace with a screenshot of your site if available)*
+![Portfolio Preview](assets/download.png)
 
-## 🚀 Live Demo
-[View Live Site](https://vikranthbandaru.github.io/portfolio/)
-*(Update the link above with your actual GitHub Pages URL)*
+##  Live Demo
+[View Live Site](https://vikranthbandaru.github.io/)
 
-## ✨ Features
+##  Features
 - **Modern Design**: Sophisticated Navy Blue & Gold color theme.
 - **Responsive Layout**: Fully optimized for desktop, tablet, and mobile devices.
 - **Interactive Elements**:
@@ -20,14 +18,14 @@ A modern, responsive personal portfolio website built to showcase my experience 
 - **Semantic HTML5**: Clean, accessible, and SEO-friendly structure.
 - **Performance**: Lightweight, vanilla JavaScript implementation (no heavy frameworks).
 
-## 🛠️ Technologies Used
+##  Technologies Used
 - **HTML5**: Semantic structure and content.
 - **CSS3**: Custom properties (variables), Flexbox, Grid, and responsive media queries.
 - **JavaScript (ES6+)**: DOM manipulation, IntersectionObserver for scroll animations and spy.
 - **Font Awesome / SVG**: Icons for social links and UI elements.
 - **Google Fonts**: 'Outfit' for headings and 'Inter' for body text.
 
-## 📂 Project Structure
+##  Project Structure
 ```
 /
 ├── assets/             # Images, logos, and resume
@@ -37,7 +35,7 @@ A modern, responsive personal portfolio website built to showcase my experience 
 └── README.md           # Project documentation
 ```
 
-## 🏃‍♂️ How to Run Locally
+##  How to Run Locally
 1.  **Clone the repository**:
     ```bash
     git clone https://github.com/vikranthbandaru/portfolio.git
@@ -48,19 +46,12 @@ A modern, responsive personal portfolio website built to showcase my experience 
     ```
 3.  **Open `index.html`** in your web browser.
 
-## 🚀 Deployment
-This project is designed to be hosted on **GitHub Pages**.
-1.  Push your code to a GitHub repository.
-2.  Go to **Settings** > **Pages**.
-3.  Select **Source**: `Deploy from a branch`.
-4.  Select **Branch**: `main` and folder `/ (root)`.
-5.  Save and wait for the site to go live.
 
-## 📬 Contact
+## Contact
 **Vikranth Bandaru**
-- 📧 Email: [bandaruvikranth@gmail.com](mailto:bandaruvikranth@gmail.com)
-- 💼 LinkedIn: [vikranthbandaru](https://www.linkedin.com/in/vikranthbandaru/)
-- 🐙 GitHub: [vikranthbandaru](https://github.com/vikranthbandaru)
+-  Email: [bandaruvikranth@gmail.com](mailto:bandaruvikranth@gmail.com)
+-  LinkedIn: [vikranthbandaru](https://www.linkedin.com/in/vikranthbandaru/)
+-  GitHub: [vikranthbandaru](https://github.com/vikranthbandaru)
 
 ---
 © 2025 Vikranth Bandaru. All Rights Reserved.
