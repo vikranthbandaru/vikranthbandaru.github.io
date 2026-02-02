@@ -23,7 +23,7 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <div class="logo">VB</div>
+            <a href="#home" class="logo" style="text-decoration: none; color: inherit;">VB</a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
@@ -31,7 +31,9 @@
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#awards" class="nav-link">Awards</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -73,7 +75,8 @@
                     </p>
                     <div class="hero-cta">
                         <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="Vikranth_Bandaru_Resume.pdf" download class="btn btn-resume">📄 Download Resume</a>
+                        <a href="https://drive.google.com/file/d/1jqQx3V3tQvOl7QZDLF_9ewpjF7C39Sfl/view?usp=sharing"
+                            target="_blank" class="btn btn-resume">View Resume</a>
                         <a href="#projects" class="btn btn-secondary">View My Work</a>
                     </div>
                 </div>
@@ -202,99 +205,87 @@
     <section class="experience" id="experience">
         <div class="container">
             <h2 class="section-title reveal">Professional Experience</h2>
-            <div class="timeline">
+            <div class="experience-grid">
                 <!-- Vaspian -->
-                <div class="timeline-item reveal delay-100">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/vaspian_logo.png" alt="Vaspian" class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">AI Product Development Intern</h3>
-                                <p class="timeline-company">Vaspian</p>
-                            </div>
+                <div class="experience-card reveal delay-100">
+                    <div class="exp-header">
+                        <img src="assets/vaspian_logo.png" alt="Vaspian" class="exp-logo">
+                        <div class="exp-title-group">
+                            <h3 class="exp-title">AI Product Development Intern</h3>
+                            <p class="exp-company">Vaspian</p>
+                            <p class="exp-date">Sep 2024 – Present</p>
                         </div>
-                        <p class="timeline-date">Sep 2024 – Present</p>
-                        <ul class="timeline-highlights">
-                            <li>Developed an AI-powered FAQ automation RAG system using LLMs (Llama 3.3 70B, Llama 4
-                                Scout) and Qdrant to convert 12,000+ raw call transcript JSON files into structured
-                                problem–solution knowledge</li>
-                            <li>Reduced customer problem-resolution time by 50% (from 6 minutes to 3 minutes) through
-                                instant, accurate chatbot answers</li>
-                            <li>Integrated MCP servers and Dockerized services with Git-based version control, improving
-                                deployment reliability and iteration speed</li>
-                            <li>Built an ElevenLabs conversational AI agent linked to Airtable via webhooks, automating
-                                webinar invites and customer response tracking</li>
-                        </ul>
                     </div>
+                    <ul class="exp-highlights">
+                        <li>Developed an AI-powered FAQ automation RAG system using LLMs (Llama 3.3 70B, Llama 4
+                            Scout) and Qdrant to convert 12,000+ raw call transcript JSON files into structured
+                            problem–solution knowledge</li>
+                        <li>Reduced customer problem-resolution time by 50% (from 6 minutes to 3 minutes) through
+                            instant, accurate chatbot answers</li>
+                        <li>Integrated MCP servers and Dockerized services with Git-based version control, improving
+                            deployment reliability and iteration speed</li>
+                        <li>Built an ElevenLabs conversational AI agent linked to Airtable via webhooks, automating
+                            webinar invites and customer response tracking</li>
+                    </ul>
                 </div>
 
                 <!-- Genpact - Data Scientist -->
-                <div class="timeline-item reveal delay-200">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/genpact_logo.png" alt="Genpact" class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">Data Scientist</h3>
-                                <p class="timeline-company">Genpact</p>
-                            </div>
+                <div class="experience-card reveal delay-200">
+                    <div class="exp-header">
+                        <img src="assets/genpact_logo.png" alt="Genpact" class="exp-logo">
+                        <div class="exp-title-group">
+                            <h3 class="exp-title">Data Scientist</h3>
+                            <p class="exp-company">Genpact</p>
+                            <p class="exp-date">Jul 2023 – Aug 2024</p>
                         </div>
-                        <p class="timeline-date">Jul 2023 – Aug 2024</p>
-                        <ul class="timeline-highlights">
-                            <li>Engineered ML pipeline for "Price-Pack Architecture" using PySpark, LLMs, and elasticity
-                                modeling to simulate over 1,000 pricing scenarios across 25+ markets and 6,000+ SKUs for
-                                Nestlé Purina, achieving 86% forecast accuracy</li>
-                            <li>Developed Data Structurizer for invoice query processing: automated OCR extraction,
-                                performed ETL, stored in vector DB, and utilized GPT-4o API with LangChain for efficient
-                                invoice search, achieving 80% query-response accuracy</li>
-                            <li>Built self-serve invoice Q&A chatbot for Genworth and Unilever using GCP Document AI,
-                                enabling rapid, accurate answers from invoice content and reducing manual lookup effort
-                            </li>
-                        </ul>
                     </div>
+                    <ul class="exp-highlights">
+                        <li>Engineered ML pipeline for "Price-Pack Architecture" using PySpark, LLMs, and elasticity
+                            modeling to simulate over 1,000 pricing scenarios across 25+ markets and 6,000+ SKUs for
+                            Nestlé Purina, achieving 86% forecast accuracy</li>
+                        <li>Developed Data Structurizer for invoice query processing: automated OCR extraction,
+                            performed ETL, stored in vector DB, and utilized GPT-4o API with LangChain for efficient
+                            invoice search, achieving 80% query-response accuracy</li>
+                        <li>Built self-serve invoice Q&A chatbot for Genworth and Unilever using GCP Document AI,
+                            enabling rapid, accurate answers from invoice content and reducing manual lookup effort
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Genpact - Software Engineering Intern -->
-                <div class="timeline-item reveal delay-300">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/genpact_logo.png" alt="Genpact" class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">Software Engineering Intern</h3>
-                                <p class="timeline-company">Genpact</p>
-                            </div>
+                <div class="experience-card reveal delay-300">
+                    <div class="exp-header">
+                        <img src="assets/genpact_logo.png" alt="Genpact" class="exp-logo">
+                        <div class="exp-title-group">
+                            <h3 class="exp-title">Software Engineering Intern</h3>
+                            <p class="exp-company">Genpact</p>
+                            <p class="exp-date">Mar 2023 – Jul 2023</p>
                         </div>
-                        <p class="timeline-date">Mar 2023 – Jul 2023</p>
-                        <ul class="timeline-highlights">
-                            <li>Designed and deployed a web-based mentor-mentee platform for Hopeworks NGO using React,
-                                SQL, and Python, increasing matching engagement by 30%</li>
-                            <li>Led development of a full-stack legal services platform using React, Node.js, MongoDB,
-                                and Firebase, integrating versioned docs, authentication, chat, and analytics</li>
-                        </ul>
                     </div>
+                    <ul class="exp-highlights">
+                        <li>Designed and deployed a web-based mentor-mentee platform for Hopeworks NGO using React,
+                            SQL, and Python, increasing matching engagement by 30%</li>
+                        <li>Led development of a full-stack legal services platform using React, Node.js, MongoDB,
+                            and Firebase, integrating versioned docs, authentication, chat, and analytics</li>
+                    </ul>
                 </div>
 
                 <!-- HighRadius -->
-                <div class="timeline-item reveal delay-400">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/highradius_logo.png" alt="HighRadius" class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">Product and Engineering Intern</h3>
-                                <p class="timeline-company">HighRadius</p>
-                            </div>
+                <div class="experience-card reveal delay-400">
+                    <div class="exp-header">
+                        <img src="assets/highradius_logo.png" alt="HighRadius" class="exp-logo">
+                        <div class="exp-title-group">
+                            <h3 class="exp-title">ML Engineer Intern</h3>
+                            <p class="exp-company">HighRadius</p>
+                            <p class="exp-date">Jan 2022 – Apr 2022</p>
                         </div>
-                        <p class="timeline-date">Jan 2022 – Apr 2022</p>
-                        <ul class="timeline-highlights">
-                            <li>Built and deployed an AI-enabled fintech cloud application with React, MongoDB, and
-                                Python-based ML models (XGBoost, Random Forest), improving efficiency by 30%</li>
-                            <li>Transformed raw, unstructured invoices into structured data, engineered features, and
-                                implemented ML models to identify the true invoice date among multiple fields</li>
-                        </ul>
                     </div>
+                    <ul class="exp-highlights">
+                        <li>Built and deployed an AI-enabled fintech cloud application with React, MongoDB, and
+                            Python-based ML models (XGBoost, Random Forest), improving efficiency by 30%</li>
+                        <li>Transformed raw, unstructured invoices into structured data, engineered features, and
+                            implemented ML models to identify the true invoice date among multiple fields</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -304,53 +295,44 @@
     <section class="education" id="education">
         <div class="container">
             <h2 class="section-title reveal">Education</h2>
-            <div class="timeline">
+            <div class="education-grid">
                 <!-- UB -->
-                <div class="timeline-item reveal delay-100">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/ub_logo.png" alt="University at Buffalo" class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">Master's, Artificial Intelligence
-                                </h3>
-                                <p class="timeline-company">University at Buffalo - SUNY</p>
-                            </div>
+                <div class="education-card reveal delay-100">
+                    <div class="edu-header">
+                        <img src="assets/ub_logo.png" alt="University at Buffalo" class="edu-logo">
+                        <div class="edu-title-group">
+                            <h3 class="edu-title">Master's, Artificial Intelligence</h3>
+                            <p class="edu-institution">University at Buffalo - SUNY</p>
+                            <p class="edu-date">Aug 2024 - Dec 2025</p>
                         </div>
-                        <p class="timeline-date">Aug 2024 - Dec 2025</p>
-                        <p class="education-coursework" style="margin-top: 1rem; color: var(--text-secondary);">
-                            <strong>Relevant Coursework:</strong> Machine Learning, NLP,
-                            Reinforcement Learning, Pattern
-                            Recognition, Info Retrieval, Data Intensive Computing, Analysis of
-                            Algorithms
-                        </p>
                     </div>
+                    <p class="edu-coursework">
+                        <strong>Relevant Coursework:</strong> Machine Learning, NLP,
+                        Reinforcement Learning, Pattern
+                        Recognition, Info Retrieval, Data Intensive Computing, Analysis of
+                        Algorithms
+                    </p>
                 </div>
+
                 <!-- SRM -->
-                <div class="timeline-item reveal delay-200">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="company-header">
-                            <img src="assets/srm_logo.png" alt="SRM Institute of Science and Technology"
-                                class="company-logo">
-                            <div>
-                                <h3 class="timeline-title">Bachelor's, Computer Science (AI/ML)
-                                </h3>
-                                <p class="timeline-company">SRM Institute of Science and
-                                    Technology</p>
-                            </div>
+                <div class="education-card reveal delay-200">
+                    <div class="edu-header">
+                        <img src="assets/srm_logo.png" alt="SRM Institute of Science and Technology" class="edu-logo">
+                        <div class="edu-title-group">
+                            <h3 class="edu-title">Bachelor's, Computer Science (AI/ML)</h3>
+                            <p class="edu-institution">SRM Institute of Science and Technology</p>
+                            <p class="edu-date">Jun 2019 - May 2023</p>
                         </div>
-                        <p class="timeline-date">Jun 2019 - May 2023</p>
-                        <p class="education-coursework" style="margin-top: 1rem; color: var(--text-secondary);">
-                            <strong>Relevant Coursework:</strong> Python, Artificial
-                            Intelligence, Applied Machine
-                            Learning, Statistical Machine Learning, NLP, Digital Image
-                            Processing, Computer
-                            Architecture, Advanced Calculus, Probability and Queueing Theory,
-                            Operating Systems, DBMS,
-                            Compilers
-                        </p>
                     </div>
+                    <p class="edu-coursework">
+                        <strong>Relevant Coursework:</strong> Python, Artificial
+                        Intelligence, Applied Machine
+                        Learning, Statistical Machine Learning, NLP, Digital Image
+                        Processing, Computer
+                        Architecture, Advanced Calculus, Probability and Queueing Theory,
+                        Operating Systems, DBMS,
+                        Compilers
+                    </p>
                 </div>
             </div>
         </div>
@@ -409,13 +391,198 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title reveal">Testimonials</h2>
+            <p class="testimonials-subtitle reveal delay-100">What people say about working with me</p>
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <button class="carousel-btn carousel-btn-prev" aria-label="Previous testimonials">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="testimonials-carousel">
+                        <div class="testimonials-track">
+                            <!-- Testimonial 1: Brian Hurley -->
+                            <div class="testimonial-card reveal delay-100">
+                                <div class="quote-icon">"</div>
+                                <div class="testimonial-header">
+                                    <img src="assets/Brian Hurley.jpeg" alt="Brian Hurley" class="testimonial-avatar">
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name-row">
+                                            <h3 class="testimonial-name">Brian Hurley</h3>
+                                            <a href="https://www.linkedin.com/in/brian-hurley-423a12/" target="_blank"
+                                                rel="noopener noreferrer" class="testimonial-linkedin"
+                                                aria-label="Brian Hurley's LinkedIn">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <p class="testimonial-role">Chairperson and Cofounder of Vaspian</p>
+                                    </div>
+                                </div>
+                                <p class="testimonial-meta">December 2, 2025 · Managed Vikranth directly</p>
+                                <p class="testimonial-text collapsed">
+                                    This fall semester, I had the pleasure of working with Vikranth. He is hard working
+                                    and very
+                                    reliable. Vikranth is also wonderfully bright and a thought-leader in his field
+                                    (AI). Anyone
+                                    would be delighted to have him on their team.
+                                    <br><br>
+                                    Cheers!
+                                </p>
+                                <button class="show-more-btn">Show More</button>
+                            </div>
+
+                            <!-- Testimonial 2: Matthew T. Doyle -->
+                            <div class="testimonial-card reveal delay-200">
+                                <div class="quote-icon">"</div>
+                                <div class="testimonial-header">
+                                    <img src="assets/Matthew T. Doyle.jpeg" alt="Matthew T. Doyle"
+                                        class="testimonial-avatar">
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name-row">
+                                            <h3 class="testimonial-name">Matthew T. Doyle</h3>
+                                            <a href="https://www.linkedin.com/in/matthewtdoyle/" target="_blank"
+                                                rel="noopener noreferrer" class="testimonial-linkedin"
+                                                aria-label="Matthew T. Doyle's LinkedIn">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <p class="testimonial-role">Project Manager at Vaspian</p>
+                                    </div>
+                                </div>
+                                <p class="testimonial-meta">December 2, 2025 · Managed Vikranth directly</p>
+                                <p class="testimonial-text collapsed">
+                                    I had the pleasure of supervising Vikranth Bandaru during his internship at Vaspian.
+                                    He was
+                                    truly a standout contributor from Day One. Vikranth brought a consistently bright,
+                                    positive, and
+                                    energetic presence to the team. He was genuinely excited about technology—especially
+                                    agentic
+                                    AI—and dove enthusiastically into exploring tools like Claude Code and ElevenLabs.
+                                    <br><br>
+                                    His energy, curiosity, and willingness to learn made a noticeable impact on our
+                                    team. And he
+                                    always came to work with a smile on his face. Always! This made him a joy to work
+                                    with.
+                                    <br><br>
+                                    I'm confident that Vikranth is on an excellent upward trajectory, and any team would
+                                    be lucky to
+                                    have him.
+                                </p>
+                                <button class="show-more-btn">Show More</button>
+                            </div>
+
+                            <!-- Testimonial 3: Sonal Singh -->
+                            <div class="testimonial-card reveal delay-300">
+                                <div class="quote-icon">"</div>
+                                <div class="testimonial-header">
+                                    <img src="assets/Sonal Singh.jpeg" alt="Sonal Singh" class="testimonial-avatar">
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name-row">
+                                            <h3 class="testimonial-name">Sonal Singh</h3>
+                                            <a href="https://www.linkedin.com/in/sonalsingh96/" target="_blank"
+                                                rel="noopener noreferrer" class="testimonial-linkedin"
+                                                aria-label="Sonal Singh's LinkedIn">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <p class="testimonial-role">Manager – Data, Analytics & AI Solutions | GenAI
+                                            System Designer
+                                            for Enterprise Agentic AI</p>
+                                    </div>
+                                </div>
+                                <p class="testimonial-meta">December 17, 2025 · Managed Vikranth directly</p>
+                                <p class="testimonial-text collapsed">
+                                    I had the opportunity to work with during our time at Genpact (Enquero), and he
+                                    consistently
+                                    proved to be a strong and reliable contributor.
+                                    Vikranth demonstrated sharp technical skills and an impressive ability to quickly
+                                    adapt to new
+                                    technologies, including Gen AI and LLMs, which he applied effectively to deliver
+                                    production-grade solutions. He played a key role in building document intelligence
+                                    capabilities,
+                                    particularly around KPI extraction from unstructured documents, and delivered with a
+                                    high level
+                                    of accuracy and ownership. His work on agentic systems reflected diligence, sound
+                                    problem-solving, and attention to detail.
+                                    What stood out most was his attitude and work ethic. Vikranth was dependable,
+                                    receptive to
+                                    feedback, and committed to delivering quality outcomes within timelines. He
+                                    approached complex
+                                    problem statements with maturity and accountability.
+                                    <br><br>
+                                    I would highly recommend Vikranth to any organization looking for a skilled, driven
+                                    professional
+                                    who can add immediate value to data, AI, and intelligent automation initiatives.
+                                </p>
+                                <button class="show-more-btn">Show More</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-btn-next" aria-label="Next testimonials">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="carousel-indicators">
+                    <button class="indicator-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+                    <button class="indicator-dot" data-slide="1" aria-label="Go to slide 2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
             <h2 class="section-title reveal">Featured Projects</h2>
             <div class="projects-grid">
-                <!-- Project 1: LLMs in Social Sciences -->
+                <!-- Project 1: SecureDoc -->
                 <div class="project-card reveal delay-100">
+                    <img src="assets/project_securedoc.png" alt="SecureDoc - Professional Document Redaction Add-in"
+                        class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">SecureDoc - Professional Document Redaction Add-in</h3>
+                        <p class="project-description">
+                            A powerful Word Add-in that automatically redacts sensitive information, adds
+                            confidentiality
+                            headers, and enables tracking changes to maintain document security and compliance.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Vite</span>
+                            <span class="tech-tag">Word JavaScript API</span>
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">PowerShell</span>
+                            <span class="tech-tag">Applied AI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/vikranthbandaru/SecureDoc" target="_blank" class="project-link">
+                                View on GitHub →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: LLMs in Social Sciences -->
+                <div class="project-card reveal delay-200">
                     <img src="assets/project_llm.png" alt="LLMs in Social Sciences" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">LLMs in Social Sciences</h3>
@@ -446,8 +613,8 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Wikipedia Q&A Chatbot -->
-                <div class="project-card reveal delay-200">
+                <!-- Project 3: Wikipedia Q&A Chatbot -->
+                <div class="project-card reveal delay-300">
                     <img src="assets/project_wiki.png" alt="Wikipedia Q&A Chatbot" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">Data-Driven Wikipedia Q&A Chatbot</h3>
@@ -475,8 +642,8 @@
                     </div>
                 </div>
 
-                <!-- Project 3: Social Distance Detector -->
-                <div class="project-card reveal delay-300">
+                <!-- Project 4: Social Distance Detector -->
+                <div class="project-card reveal delay-400">
                     <img src="assets/project_social_distance.png" alt="Social Distance Detector" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">Social Distance Detector</h3>
@@ -503,6 +670,219 @@
             </div>
         </div>
     </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications" id="certifications">
+        <div class="container">
+            <h2 class="section-title reveal">Licenses & Certifications</h2>
+            <div class="certifications-grid">
+                <!-- Microsoft Azure Fundamentals -->
+                <div class="certification-card reveal delay-100">
+                    <div class="cert-header">
+                        <img src="assets/logos/microsoft_logo.jpeg" alt="Microsoft" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Microsoft Certified: Azure Fundamentals</h3>
+                            <p class="cert-issuer">Microsoft</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued Dec 2023</span>
+                        <span class="cert-id">Credential ID: 534D76B6DAD80A37</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Azure Cloud Fundamentals</span>
+                    </div>
+                    <a href="https://learn.microsoft.com/en-gb/users/vikranthbandaru-8511/credentials/534d76b6dad80a37?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+                        target="_blank" class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- Genpact Generative AI -->
+                <div class="certification-card reveal delay-150">
+                    <div class="cert-header">
+                        <img src="assets/logos/genpact_logo.jpeg" alt="Genpact" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Generative AI</h3>
+                            <p class="cert-issuer">Genpact</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued Dec 2023</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">Artificial Intelligence (AI)</span>
+                    </div>
+                    <a href="https://d1021bnyos68nh.cloudfront.net/fJCt1nhH" target="_blank" class="cert-link">Show
+                        Credential →</a>
+                </div>
+
+                <!-- Beginner Statistics for Data Analytics -->
+                <div class="certification-card reveal delay-200">
+                    <div class="cert-header">
+                        <img src="assets/logos/udemy_logo.jpeg" alt="Udemy" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Beginner Statistics for Data Analytics - Learn the Easy Way!</h3>
+                            <p class="cert-issuer">Udemy</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued Apr 2023</span>
+                        <span class="cert-id">Credential ID: 0004</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Data Analytics</span>
+                        <span class="skill-tag">Statistics</span>
+                        <span class="skill-tag">Data Visualization</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">ETL</span>
+                        <span class="skill-tag">Microsoft Excel</span>
+                    </div>
+                    <button class="cert-link"
+                        onclick="openLightbox('assets/beginner_statistics_cert.jpg', 'Beginner Statistics Certificate')">Show
+                        Credential →</button>
+                </div>
+
+                <!-- Text Analysis and NLP -->
+                <div class="certification-card reveal delay-250">
+                    <div class="cert-header">
+                        <img src="assets/logos/udemy_logo.jpeg" alt="Udemy" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Text Analysis and Natural Language Processing With Python</h3>
+                            <p class="cert-issuer">Udemy</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued May 2023</span>
+                        <span class="cert-id">Credential ID: 0004</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Natural Language Processing (NLP)</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">Text Analysis</span>
+                    </div>
+                    <a href="https://www.udemy.com/certificate/UC-4d5f9360-61c7-4d79-b9e2-05d08e4e8c2b/" target="_blank"
+                        class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- SQL and PostgreSQL -->
+                <div class="certification-card reveal delay-300">
+                    <div class="cert-header">
+                        <img src="assets/logos/udemy_logo.jpeg" alt="Udemy" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">SQL and PostgreSQL: The Complete Developer's Guide</h3>
+                            <p class="cert-issuer">Udemy</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued May 2023</span>
+                        <span class="cert-id">Credential ID: 0004</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Data Analytics</span>
+                        <span class="skill-tag">Databases</span>
+                        <span class="skill-tag">ETL</span>
+                    </div>
+                    <a href="https://www.udemy.com/certificate/UC-ab6461d9-175b-469b-b558-cb44461bf048/" target="_blank"
+                        class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- ML NLP Streamlit -->
+                <div class="certification-card reveal delay-350">
+                    <div class="cert-header">
+                        <img src="assets/logos/udemy_logo.jpeg" alt="Udemy" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Machine Learning | Natural Language Processing | Streamlit</h3>
+                            <p class="cert-issuer">Udemy</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued May 2023</span>
+                        <span class="cert-id">Credential ID: 0004</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Natural Language Processing</span>
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                    <a href="https://www.udemy.com/certificate/UC-ec7999de-76f8-47e1-aa7f-994b28805479/" target="_blank"
+                        class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- ML Data Science and GenAI -->
+                <div class="certification-card reveal delay-400">
+                    <div class="cert-header">
+                        <img src="assets/logos/udemy_logo.jpeg" alt="Udemy" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Machine Learning, Data Science and Generative AI with Python</h3>
+                            <p class="cert-issuer">Udemy</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued May 2023</span>
+                        <span class="cert-id">Credential ID: 0004</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">Data Science</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">Pandas</span>
+                    </div>
+                    <a href="https://www.udemy.com/certificate/UC-1c22dc9e-d326-4b4a-a2a1-96f9ea36760a/" target="_blank"
+                        class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- Programming for Everybody -->
+                <div class="certification-card reveal delay-450">
+                    <div class="cert-header">
+                        <img src="assets/logos/coursera_logo.jpeg" alt="Coursera" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Programming for Everybody (Getting Started with Python)</h3>
+                            <p class="cert-issuer">Coursera</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued Sep 2021</span>
+                        <span class="cert-id">Credential ID: 8LJEZ22GTXVP</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Algorithms</span>
+                    </div>
+                    <a href="https://www.coursera.org/account/accomplishments/certificate/8LJEZ22GTXVP" target="_blank"
+                        class="cert-link">Show Credential →</a>
+                </div>
+
+                <!-- Elements of AI -->
+                <div class="certification-card reveal delay-500">
+                    <div class="cert-header">
+                        <img src="assets/logos/reaktor__logo.jpeg" alt="Reaktor" class="cert-logo">
+                        <div class="cert-title-group">
+                            <h3 class="cert-title">Elements of AI</h3>
+                            <p class="cert-issuer">Reaktor By Google</p>
+                        </div>
+                    </div>
+                    <div class="cert-meta">
+                        <span class="cert-date">Issued Sep 2021</span>
+                        <span class="cert-id">Credential ID: jxb8d9x6cwh</span>
+                    </div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Artificial Intelligence (AI)</span>
+                    </div>
+                    <a href="https://certificates.mooc.fi/validate/jxb8d9x6cwh" target="_blank" class="cert-link">Show
+                        Credential →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Publications Section -->
     <section class="publications" id="publications">
@@ -532,56 +912,112 @@
         </div>
     </section>
 
+
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title reveal">Get In Touch</h2>
-            <div class="contact-content reveal delay-100">
-                <p class="contact-text">
-                    I'm currently looking for full-time opportunities in AI/ML and Data Science.
-                    Whether you have a question or just want to say hi, I'll try my best to get
-                    back to you!
-                </p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
+            <p class="contact-intro reveal delay-100">
+                I'm currently looking for full-time opportunities in AI/ML and Data Science.
+                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+
+            <div class="contact-wrapper reveal delay-200">
+                <!-- Left Side: Contact Information Card -->
+                <div class="contact-info-card">
+                    <h3>Contact Information</h3>
+                    <p class="info-subtitle">Feel free to reach out through any of these channels</p>
+
+                    <div class="info-items">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <span>+1 469 439 0911</span>
                         </div>
-                        <span>New York, USA</span>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <span>bandaruvikranth@gmail.com</span>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <span>New York, USA</span>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <!-- Social Links in Card -->
+                    <div class="card-social-links">
+                        <a href="https://github.com/vikranthbandaru" target="_blank" class="card-social-link"
+                            aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                </path>
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                             </svg>
-                        </div>
-                        <span>+1 469 439 0911</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/vikranthbandaru/" target="_blank" class="card-social-link"
+                            aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
-                <a href="mailto:bandaruvikranth@gmail.com" class="btn btn-primary">Say Hello</a>
 
-                <div class="social-links">
-                    <a href="https://github.com/vikranthbandaru" target="_blank" class="social-link"
-                        aria-label="GitHub">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/vikranthbandaru/" target="_blank" class="social-link"
-                        aria-label="LinkedIn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                        </svg>
-                    </a>
+                <!-- Right Side: Contact Form -->
+                <div class="contact-form-wrapper">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form-grid">
+                        <input type="hidden" name="access_key" value="af1c8205-9130-4a00-92ae-fd7a32b1c2f3">
+                        <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
+                        <input type="hidden" name="from_name" value="Portfolio Contact Form">
+
+                        <!-- Name and Email in Grid -->
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="hello@example.com" required>
+                        </div>
+
+                        <!-- Phone Number (Optional) - Full Width -->
+                        <div class="form-group form-full">
+                            <label for="phone">Phone Number <span class="optional">(Optional)</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+
+                        <!-- Message - Full Width -->
+                        <div class="form-group form-full">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Write your message here..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary form-submit-btn">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>

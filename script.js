@@ -136,6 +136,128 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 9. Show More/Less for Testimonials
+    const showMoreBtns = document.querySelectorAll('.show-more-btn');
+
+    showMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const card = this.closest('.testimonial-card');
+            const text = card.querySelector('.testimonial-text');
+
+            if (text.classList.contains('collapsed')) {
+                // Expand
+                text.classList.remove('collapsed');
+                this.textContent = 'Show Less';
+            } else {
+                // Collapse
+                text.classList.add('collapsed');
+                this.textContent = 'Show More';
+                // Scroll card into view smoothly
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    });
+
+    // 10. Testimonials Carousel
+    const track = document.querySelector('.testimonials-track');
+    const prevBtn = document.querySelector('.carousel-btn-prev');
+    const nextBtn = document.querySelector('.carousel-btn-next');
+    const indicators = document.querySelectorAll('.indicator-dot');
+
+    if (track && prevBtn && nextBtn) {
+        let currentSlide = 0;
+        const totalCards = document.querySelectorAll('.testimonial-card').length;
+
+        // Calculate slides per view based on screen width
+        function getSlidesPerView() {
+            return window.innerWidth <= 768 ? 1 : 2;
+        }
+
+        // Calculate total slides
+        function getTotalSlides() {
+            const slidesPerView = getSlidesPerView();
+            return Math.ceil(totalCards / slidesPerView);
+        }
+
+        // Update carousel position
+        function updateCarousel() {
+            const slidesPerView = getSlidesPerView();
+            const slideWidth = 100 / slidesPerView;
+            const offset = currentSlide * slideWidth;
+            track.style.transform = `translateX(-${offset}%)`;
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide >= getTotalSlides() - 1;
+
+            // Update indicators
+            indicators.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Navigate to specific slide
+        function goToSlide(slideIndex) {
+            currentSlide = Math.max(0, Math.min(slideIndex, getTotalSlides() - 1));
+            updateCarousel();
+        }
+
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < getTotalSlides() - 1) {
+                goToSlide(currentSlide + 1);
+            }
+        });
+
+        // Indicator dots
+        indicators.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            // Only navigate if carousel is in viewport
+            const carouselSection = document.querySelector('.testimonials');
+            if (!carouselSection) return;
+
+            const rect = carouselSection.getBoundingClientRect();
+            const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (isInViewport) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    goToSlide(currentSlide - 1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    goToSlide(currentSlide + 1);
+                }
+            }
+        });
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // Reset to first slide on resize to prevent layout issues
+                currentSlide = 0;
+                updateCarousel();
+            }, 250);
+        });
+
+        // Initialize carousel
+        updateCarousel();
+    }
 });
 
 // 7. Lightbox Functionality (Global functions for onclick events)
