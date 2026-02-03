@@ -1,5 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Enable JS-dependent styles (progressive enhancement)
+    // 1. Visitor Tracking & Email Notification System
+    // TODO: Update these values after completing EmailJS setup
+    const EMAILJS_CONFIG = {
+        publicKey: 'YOUR_PUBLIC_KEY',        // Replace with your EmailJS public key
+        serviceID: 'YOUR_SERVICE_ID',        // Replace with your EmailJS service ID
+        templateID: 'YOUR_TEMPLATE_ID',      // Replace with your EmailJS template ID
+        enabled: false                        // Set to true after configuring EmailJS
+    };
+
+    // Initialize EmailJS
+    if (EMAILJS_CONFIG.enabled && typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_CONFIG.publicKey);
+
+        // Send visitor notification
+        sendVisitorNotification();
+    }
+
+    function sendVisitorNotification() {
+        // Get visitor information
+        const visitorInfo = {
+            page_url: window.location.href,
+            visit_time: new Date().toLocaleString('en-US', {
+                timeZone: 'America/New_York',
+                dateStyle: 'full',
+                timeStyle: 'long'
+            }),
+            referrer: document.referrer || 'Direct visit',
+            device_type: getDeviceType(),
+            location: 'Loading...', // Will be updated via IP geolocation
+            to_email: 'bandaruvikranth@gmail.com'
+        };
+
+        // Optional: Get approximate location via IP (free service)
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                visitorInfo.location = `${data.city || 'Unknown'}, ${data.region || ''} ${data.country_name || ''}`.trim();
+                sendEmail(visitorInfo);
+            })
+            .catch(() => {
+                visitorInfo.location = 'Location unavailable';
+                sendEmail(visitorInfo);
+            });
+    }
+
+    function sendEmail(visitorInfo) {
+        emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, visitorInfo)
+            .then(response => {
+                console.log('✅ Visitor notification sent successfully!', response.status, response.text);
+            })
+            .catch(error => {
+                console.error('❌ Failed to send visitor notification:', error);
+            });
+    }
+
+    function getDeviceType() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const screenWidth = window.innerWidth;
+
+        if (/mobile|android|iphone|ipad|ipod/.test(userAgent)) {
+            return screenWidth < 768 ? '📱 Mobile' : '📱 Tablet';
+        }
+        return '💻 Desktop';
+    }
+
+    // 2. Enable JS-dependent styles (progressive enhancement)
     document.body.classList.add('js-enabled');
 
     // 2. Mobile Menu Toggle
