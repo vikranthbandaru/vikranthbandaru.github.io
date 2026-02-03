@@ -1929,12 +1929,21 @@ body.dark-mode .contact-item:hover {
 
     /* Skills Mobile */
     .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: var(--spacing-md);
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
     }
 
-    .skill-card {
-        padding: var(--spacing-md);
+    .skill-category {
+        padding: var(--spacing-lg);
+    }
+
+    .skill-tags {
+        gap: var(--spacing-sm);
+    }
+
+    .skill-tag {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.85rem;
     }
 
     /* Awards Mobile */
