@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Visitor Tracking & Email Notification System
-    // TODO: Update these values after completing EmailJS setup
     const EMAILJS_CONFIG = {
-        publicKey: 'YOUR_PUBLIC_KEY',        // Replace with your EmailJS public key
-        serviceID: 'YOUR_SERVICE_ID',        // Replace with your EmailJS service ID
-        templateID: 'YOUR_TEMPLATE_ID',      // Replace with your EmailJS template ID
-        enabled: false                        // Set to true after configuring EmailJS
+        publicKey: 'c1ZTVnNennlmuc6CB',
+        serviceID: 'service_izhabmr',
+        templateID: 'template_qj24pmq',
+        enabled: true  // ✅ ACTIVATED!
     };
 
     // Initialize EmailJS
