@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Calculate slides per view based on screen width
         function getSlidesPerView() {
-            return window.innerWidth <= 768 ? 1 : 2;
+            return 1; // Always show 1 testimonial at a time
         }
 
         // Calculate total slides
