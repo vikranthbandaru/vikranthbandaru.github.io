@@ -1626,6 +1626,59 @@ body.dark-mode .testimonial-card:hover .testimonial-avatar {
     box-shadow: var(--shadow-glow);
 }
 
+/* Contact Divider */
+.contact-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: var(--spacing-lg) 0;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.contact-divider span {
+    padding: 0 var(--spacing-md);
+}
+
+/* Schedule Call Button */
+.schedule-call-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.schedule-call-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+.schedule-call-btn:active {
+    transform: translateY(0);
+}
+
+.schedule-call-btn svg {
+    flex-shrink: 0;
+}
+
 /* === FOOTER === */
 .footer {
     padding: var(--spacing-xl) 0;
