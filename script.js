@@ -17,56 +17,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function sendVisitorNotification() {
-        // Increment global visitor count using CountAPI (free service)
-        fetch('https://api.countapi.xyz/hit/vikranthbandaru-portfolio/visits')
+        // Get visitor information first
+        const visitorInfo = {
+            page_url: window.location.href,
+            visit_time: new Date().toLocaleString('en-US', {
+                timeZone: 'America/New_York',
+                dateStyle: 'full',
+                timeStyle: 'long'
+            }),
+            referrer: document.referrer || 'Direct visit',
+            device_type: getDeviceType(),
+            location: 'Fetching...',
+            total_visits: 'Check Google Analytics',
+            to_email: 'bandaruvikranth@gmail.com'
+        };
+
+        // Get location using ip-api.com (more reliable, free for non-commercial use)
+        fetch('http://ip-api.com/json/?fields=city,regionName,country')
             .then(response => response.json())
             .then(data => {
-                const totalVisits = data.value;
-
-                // Get visitor information
-                const visitorInfo = {
-                    page_url: window.location.href,
-                    visit_time: new Date().toLocaleString('en-US', {
-                        timeZone: 'America/New_York',
-                        dateStyle: 'full',
-                        timeStyle: 'long'
-                    }),
-                    referrer: document.referrer || 'Direct visit',
-                    device_type: getDeviceType(),
-                    location: 'Loading...',
-                    total_visits: `${totalVisits} total visits`,
-                    to_email: 'bandaruvikranth@gmail.com'
-                };
-
-                // Get approximate location via IP (free service)
-                fetch('https://ipapi.co/json/')
+                if (data.city) {
+                    visitorInfo.location = `${data.city}, ${data.regionName || ''} ${data.country || ''}`.trim();
+                } else {
+                    visitorInfo.location = 'Location not available';
+                }
+                sendEmail(visitorInfo);
+            })
+            .catch(() => {
+                // Fallback: try ipinfo.io
+                fetch('https://ipinfo.io/json?token=')
                     .then(response => response.json())
-                    .then(locationData => {
-                        visitorInfo.location = `${locationData.city || 'Unknown'}, ${locationData.region || ''} ${locationData.country_name || ''}`.trim();
+                    .then(data => {
+                        visitorInfo.location = `${data.city || 'Unknown'}, ${data.region || ''} ${data.country || ''}`.trim();
                         sendEmail(visitorInfo);
                     })
                     .catch(() => {
-                        visitorInfo.location = 'Location unavailable';
+                        visitorInfo.location = 'Location not available';
                         sendEmail(visitorInfo);
                     });
-            })
-            .catch(error => {
-                console.error('Failed to track visit count:', error);
-                // Send email anyway without count
-                const visitorInfo = {
-                    page_url: window.location.href,
-                    visit_time: new Date().toLocaleString('en-US', {
-                        timeZone: 'America/New_York',
-                        dateStyle: 'full',
-                        timeStyle: 'long'
-                    }),
-                    referrer: document.referrer || 'Direct visit',
-                    device_type: getDeviceType(),
-                    location: 'Location unavailable',
-                    total_visits: 'Count unavailable',
-                    to_email: 'bandaruvikranth@gmail.com'
-                };
-                sendEmail(visitorInfo);
             });
     }
 
