@@ -1879,7 +1879,7 @@ body.dark-mode .contact-item:hover {
 
     /* Carousel responsive: 1 card per view on mobile */
     .testimonials-track {
-        grid-template-columns: repeat(3, 100%);
+        grid-template-columns: repeat(4, 100%);
     }
 
     .carousel-btn {

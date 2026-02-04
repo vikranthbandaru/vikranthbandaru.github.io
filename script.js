@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sendVisitorNotification() {
+        // Track visit count using localStorage
+        let visitCount = localStorage.getItem('portfolio_visit_count');
+        if (!visitCount) {
+            visitCount = 1;
+        } else {
+            visitCount = parseInt(visitCount) + 1;
+        }
+        localStorage.setItem('portfolio_visit_count', visitCount);
+
         // Get visitor information
         const visitorInfo = {
             page_url: window.location.href,
@@ -27,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             referrer: document.referrer || 'Direct visit',
             device_type: getDeviceType(),
             location: 'Loading...', // Will be updated via IP geolocation
+            visit_count: `Visit #${visitCount} from this browser`,
             to_email: 'bandaruvikranth@gmail.com'
         };
 
