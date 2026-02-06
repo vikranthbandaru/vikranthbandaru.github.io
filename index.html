@@ -1125,6 +1125,78 @@
         </p>
     </footer>
 
+    <!-- Virtual Vik Chatbot -->
+    <div id="chatbot-container" class="chatbot-container">
+        <!-- Chatbot Toggle Button -->
+        <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open Virtual Vik Chatbot">
+            <div class="toggle-icon-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="chatbot-icon-svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6ZM12 20C9.33 20 7 18 7 15.5C7 15 7.5 15 8 15H16C16.5 15 17 15 17 15.5C17 18 14.67 20 12 20Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+            <span class="chatbot-alert">1</span>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window hidden">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-title-group">
+                    <div class="chatbot-avatar-container">
+                        <img src="assets/profile.png" alt="Vik" class="chatbot-header-avatar">
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="chatbot-info">
+                        <h3>Virtual Vik</h3>
+                        <span class="status-indicator">Online</span>
+                    </div>
+                </div>
+                <button id="chatbot-close" class="chatbot-close-btn" aria-label="Close Chatbot">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chatbot-messages" id="chatbot-messages">
+                <!-- Initial Welcome Message -->
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Hello! I'm Portfolio Bot, Vikranth's virtual assistant. Ask me about his projects, experience,
+                        or skills!
+                        <a href="#contact" class="chatbot-contact-link" onclick="closeChatbot()">Contact Vikranth →</a>
+                    </div>
+                    <span class="message-time">Just now</span>
+                </div>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="chatbot-suggestions">
+                <button class="suggestion-chip">How can Vikranth help me?</button>
+                <button class="suggestion-chip">Show me his latest work</button>
+                <button class="suggestion-chip">What is his tech stack?</button>
+                <button class="suggestion-chip">Can I hire him?</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Ask about Vikranth..." aria-label="Chatbot input">
+                <button id="chatbot-send" class="chatbot-send-btn" aria-label="Send message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
