@@ -373,9 +373,11 @@ document.addEventListener('keydown', (e) => {
 // ==========================================
 
 // Configuration
+// Configuration
 const CHATBOT_CONFIG = {
-    openRouterKey: "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", // Provided by user
-    model: "google/gemini-2.0-flash-lite-preview-02-05:free", // More reliable free model
+    // Key loaded from config.js (gitignored)
+    openRouterKey: window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.openRouterKey : "",
+    model: "openrouter/free", // Auto-selects best available free model
     siteUrl: window.location.href,
     siteTitle: "Vikranth Bandaru Portfolio"
 };
