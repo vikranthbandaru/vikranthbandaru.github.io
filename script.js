@@ -502,9 +502,9 @@ function initChatbot() {
 
             // List of free models to try in order
             const models = [
-                "google/gemini-2.0-flash-exp:free",
-                "deepseek/deepseek-r1-distill-llama-70b:free",
-                "meta-llama/llama-3.1-8b-instruct:free",
+                "openrouter/free", // Auto-selects best available free model
+                "google/gemma-2-9b-it:free",
+                "meta-llama/llama-3.2-3b-instruct:free",
                 "mistralai/mistral-7b-instruct:free"
             ];
 
