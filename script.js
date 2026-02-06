@@ -367,3 +367,253 @@ document.addEventListener('keydown', (e) => {
         closeLightbox();
     }
 });
+
+// ==========================================
+// VIRTUAL VIK CHATBOT LOGIC
+// ==========================================
+
+// Configuration
+const CHATBOT_CONFIG = {
+    openRouterKey: "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", // Provided by user
+    model: "meta-llama/llama-3.2-3b-instruct:free",
+    siteUrl: window.location.href,
+    siteTitle: "Vikranth Bandaru Portfolio"
+};
+
+// State
+let chatHistory = [];
+let portfolioContext = "";
+
+// Initialize Chatbot when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    initChatbot();
+});
+
+function initChatbot() {
+    // DOM Elements
+    const toggleBtn = document.getElementById('chatbot-toggle');
+    const closeBtn = document.getElementById('chatbot-close');
+    const chatWindow = document.querySelector('.chatbot-window');
+    const sendBtn = document.getElementById('chatbot-send');
+    const inputField = document.getElementById('chatbot-input');
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const suggestions = document.querySelectorAll('.suggestion-chip');
+    const alertBadge = document.querySelector('.chatbot-alert');
+
+    // Extract Context
+    portfolioContext = extractPortfolioContext();
+
+    // Event Listeners
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+            alertBadge.style.display = 'none'; // Hide alert on open
+            if (!chatWindow.classList.contains('hidden')) {
+                setTimeout(() => inputField.focus(), 100);
+                scrollToBottom();
+            }
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            chatWindow.classList.add('hidden');
+        });
+    }
+
+    if (sendBtn) {
+        sendBtn.addEventListener('click', sendMessage);
+    }
+
+    if (inputField) {
+        inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    }
+
+    suggestions.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const text = chip.textContent;
+            inputField.value = text;
+            sendMessage();
+        });
+    });
+
+    function sendMessage() {
+        const text = inputField.value.trim();
+        if (!text) return;
+
+        // Add User Message
+        addMessage(text, 'user');
+        inputField.value = '';
+
+        // Show Typing Indicator
+        showTypingIndicator();
+
+        // Call API
+        fetchResponse(text);
+    }
+
+    function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `message ${sender}-message`;
+
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        div.innerHTML = `
+            <div class="message-content">${formatMessage(text)}</div>
+            <span class="message-time">${timestamp}</span>
+        `;
+
+        messagesContainer.appendChild(div);
+        scrollToBottom();
+    }
+
+    function showTypingIndicator() {
+        // Remove existing indicator if any
+        removeTypingIndicator();
+
+        const div = document.createElement('div');
+        div.className = 'typing-indicator';
+        div.id = 'typing-indicator';
+        div.innerHTML = `
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        `;
+        messagesContainer.appendChild(div);
+        scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+    }
+
+    function scrollToBottom() {
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+
+    async function fetchResponse(userMessage) {
+        try {
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": CHATBOT_CONFIG.siteUrl,
+                    "X-Title": CHATBOT_CONFIG.siteTitle
+                },
+                body: JSON.stringify({
+                    "model": CHATBOT_CONFIG.model,
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": `You are Virtual Vik, an friendly and professional AI assistant for Vikranth Bandaru's portfolio. 
+                            Your goal is to answer questions about Vikranth's skills, projects, and experience based ONLY on the context provided below.
+                            
+                            TONE: Professional, enthusiastic, helpful, and concise. Match the "vibe" of a tech-savvy developer.
+                            
+                            CONTEXT:
+                            ${portfolioContext}
+                            
+                            INSTRUCTIONS:
+                            - Keep answers short and engaging (under 3 sentences usually).
+                            - If asked about contact, direct them to the #contact section.
+                            - If asked about hiring, be encouraging and suggest checking his resume or contacting him.
+                            - Do not hallucinate facts not in the context. If you don't know, say "I don't see that in his portfolio, but you can ask him directly!"
+                            `
+                        },
+                        ...chatHistory.slice(-4), // Keep last 4 messages for context
+                        {
+                            "role": "user",
+                            "content": userMessage
+                        }
+                    ]
+                })
+            });
+
+            if (!response.ok) throw new Error('API Error');
+
+            const data = await response.json();
+            const botReply = data.choices[0].message.content;
+
+            // Update History
+            chatHistory.push({ role: "user", content: userMessage });
+            chatHistory.push({ role: "assistant", content: botReply });
+
+            // Display Reply
+            removeTypingIndicator();
+            addMessage(botReply, 'bot');
+
+        } catch (error) {
+            console.error(error);
+            removeTypingIndicator();
+            addMessage("Oops! I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
+        }
+    }
+
+    // Helper: basic markdown-like formatting for links/bold
+    function formatMessage(text) {
+        if (!text) return "";
+        // Convert URLs to links
+        text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:var(--accent-primary)">$1</a>');
+        // Convert **text** to bold
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        return text;
+    }
+}
+
+// Extract text from portfolio sections to build context
+function extractPortfolioContext() {
+    let context = "NAME: Vikranth Bandaru\n\n";
+
+    // Hero / Intro
+    const heroTitle = document.querySelector('.hero-title')?.innerText || "";
+    const heroSubtitle = document.querySelector('.hero-subtitle')?.innerText || "";
+    const heroText = document.querySelector('.hero-text')?.innerText || "";
+    context += `INTRO: ${heroTitle}. ${heroSubtitle}. ${heroText}\n\n`;
+
+    // About
+    const aboutText = document.querySelector('.about-text')?.innerText || "";
+    context += `ABOUT: ${aboutText}\n\n`;
+
+    // Skills
+    const skillTags = Array.from(document.querySelectorAll('.skill-tag')).map(tag => tag.innerText).join(", ");
+    context += `SKILLS: ${skillTags}\n\n`;
+
+    // Experience
+    context += "EXPERIENCE:\n";
+    document.querySelectorAll('.experience-card').forEach(card => {
+        const role = card.querySelector('h3')?.innerText;
+        const company = card.querySelector('.company-name')?.innerText;
+        const date = card.querySelector('.experience-date')?.innerText;
+        const desc = card.querySelector('.experience-description')?.innerText;
+        if (role) context += `- ${role} at ${company} (${date}): ${desc}\n`;
+    });
+    context += "\n";
+
+    // Projects
+    context += "PROJECTS:\n";
+    document.querySelectorAll('.projects .project-card').forEach(card => {
+        const title = card.querySelector('.project-title')?.innerText;
+        const desc = card.querySelector('.project-description')?.innerText;
+        const tech = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.innerText).join(", ");
+        if (title) context += `- ${title}: ${desc} (Tech: ${tech})\n`;
+    });
+    context += "\n";
+
+    // Contact Info
+    context += "\nCONTACT: Email: bandaruvikranth@gmail.com. Location: New York, USA. LinkedIn: https://www.linkedin.com/in/vikranthbandaru/";
+
+    return context;
+}
+
+// Global helper to close chatbot from link
+window.closeChatbot = function () {
+    const cw = document.querySelector('.chatbot-window');
+    if (cw) cw.classList.add('hidden');
+};
+
