@@ -2047,9 +2047,7 @@ body.dark-mode .contact-item:hover {
     position: relative;
     z-index: 1001;
     padding: 0;
-    /* Clear padding for image */
-    overflow: hidden;
-    /* Ensure image stays in circle */
+    /* overflow: hidden; REMOVED to let badge pop out */
 }
 
 .chatbot-toggle:hover {
@@ -2062,16 +2060,20 @@ body.dark-mode .contact-item:hover {
     height: 100%;
     object-fit: cover;
     pointer-events: none;
-    /* Let click pass through */
+    border-radius: 50%;
+    /* Ensure image is round */
 }
 
 .chatbot-alert {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background: var(--accent-secondary);
+    top: -2px;
+    /* Pop out */
+    right: -2px;
+    /* Pop out */
+    width: 22px;
+    height: 22px;
+    background: #ef4444;
+    /* Bright red for attention */
     color: white;
     border-radius: 50%;
     font-size: 0.75rem;
@@ -2080,6 +2082,9 @@ body.dark-mode .contact-item:hover {
     align-items: center;
     justify-content: center;
     border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    /* Above avatar */
     animation: bounce 2s infinite;
 }
 
