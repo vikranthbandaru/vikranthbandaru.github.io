@@ -375,7 +375,7 @@ document.addEventListener('keydown', (e) => {
 // Configuration
 const CHATBOT_CONFIG = {
     openRouterKey: "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", // Provided by user
-    model: "meta-llama/llama-3.2-3b-instruct:free",
+    model: "google/gemini-2.0-flash-lite-preview-02-05:free", // More reliable free model
     siteUrl: window.location.href,
     siteTitle: "Vikranth Bandaru Portfolio"
 };
@@ -498,6 +498,7 @@ function initChatbot() {
 
     async function fetchResponse(userMessage) {
         try {
+            console.log("Sending request to OpenRouter...");
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
@@ -535,9 +536,18 @@ function initChatbot() {
                 })
             });
 
-            if (!response.ok) throw new Error('API Error');
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error("API Error Details:", response.status, response.statusText, errorData);
+                throw new Error(`API Error: ${response.status}`);
+            }
 
             const data = await response.json();
+            if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+                console.error("Invalid API Response:", data);
+                throw new Error("Invalid response format");
+            }
+
             const botReply = data.choices[0].message.content;
 
             // Update History
@@ -549,9 +559,9 @@ function initChatbot() {
             addMessage(botReply, 'bot');
 
         } catch (error) {
-            console.error(error);
+            console.error("Chatbot Error:", error);
             removeTypingIndicator();
-            addMessage("Oops! I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
+            addMessage("Oops! I'm having trouble connecting to my brain right now. It might be a connection issue. Please try again!", 'bot');
         }
     }
 
