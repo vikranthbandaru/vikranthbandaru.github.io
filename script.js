@@ -373,10 +373,11 @@ document.addEventListener('keydown', (e) => {
 // ==========================================
 
 // Configuration
-// Configuration
 const CHATBOT_CONFIG = {
-    // Key loaded from config.js (gitignored)
+    // Key loaded from config.js (gitignored) - Optional if using proxy
     openRouterKey: window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.openRouterKey : "",
+    // Secured Backend Proxy (Public URL)
+    backendUrl: "https://portfolio-chat-proxy.bandaruvikranth.workers.dev",
     model: "openrouter/free", // Auto-selects best available free model
     siteUrl: window.location.href,
     siteTitle: "Vikranth Bandaru Portfolio"
@@ -511,7 +512,8 @@ function initChatbot() {
             ];
 
             const makeRequest = async (model) => {
-                const backendUrl = window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.backendUrl : "";
+                // Use configured backend URL (Proxy) or local secret
+                const backendUrl = CHATBOT_CONFIG.backendUrl || (window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.backendUrl : "");
 
                 let url = "https://openrouter.ai/api/v1/chat/completions";
                 let headers = {
