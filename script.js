@@ -501,7 +501,7 @@ function initChatbot() {
             console.log("Sending request to OpenRouter...");
 
             // Primary Model
-            let modelToUse = "google/gemini-2.0-flash-lite-preview-02-05:free";
+            let modelToUse = "google/gemini-2.0-flash-exp:free";
 
             const makeRequest = async (model) => {
                 return fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -539,7 +539,7 @@ function initChatbot() {
             // Fallback if primary fails
             if (!response.ok) {
                 console.warn(`Primary model ${modelToUse} failed (${response.status}). Trying fallback...`);
-                modelToUse = "microsoft/phi-3-mini-128k-instruct:free"; // Fallback model
+                modelToUse = "meta-llama/llama-3-8b-instruct:free"; // More stable fallback
                 response = await makeRequest(modelToUse);
             }
 
