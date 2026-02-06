@@ -500,8 +500,13 @@ function initChatbot() {
         try {
             console.log("Sending request to OpenRouter...");
 
-            // Primary Model
-            let modelToUse = "google/gemini-2.0-flash-exp:free";
+            // List of free models to try in order
+            const models = [
+                "google/gemini-2.0-flash-exp:free",
+                "deepseek/deepseek-r1-distill-llama-70b:free",
+                "meta-llama/llama-3.1-8b-instruct:free",
+                "mistralai/mistral-7b-instruct:free"
+            ];
 
             const makeRequest = async (model) => {
                 return fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -509,7 +514,7 @@ function initChatbot() {
                     headers: {
                         "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
                         "Content-Type": "application/json",
-                        "HTTP-Referer": window.location.href, // Use current location to avoid CORS issues if local
+                        "HTTP-Referer": window.location.href,
                         "X-Title": "Portfolio Chatbot"
                     },
                     body: JSON.stringify({
@@ -534,19 +539,28 @@ function initChatbot() {
                 });
             };
 
-            let response = await makeRequest(modelToUse);
+            let response;
+            let lastError;
 
-            // Fallback if primary fails
-            if (!response.ok) {
-                console.warn(`Primary model ${modelToUse} failed (${response.status}). Trying fallback...`);
-                modelToUse = "meta-llama/llama-3-8b-instruct:free"; // More stable fallback
-                response = await makeRequest(modelToUse);
+            // Try models in sequence
+            for (const model of models) {
+                try {
+                    console.log(`Trying model: ${model}`);
+                    response = await makeRequest(model);
+
+                    if (response.ok) {
+                        break; // Success!
+                    } else {
+                        console.warn(`Model ${model} failed: ${response.status}`);
+                        lastError = await response.json().catch(() => ({}));
+                    }
+                } catch (e) {
+                    console.error(`Network error with ${model}:`, e);
+                }
             }
 
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                console.error("API Error Details:", response.status, errorData);
-                throw new Error(`API Error: ${response.status} (${errorData.error?.message || 'Unknown'})`);
+            if (!response || !response.ok) {
+                throw new Error(`All models failed. Last error: ${response ? response.status : 'Network Error'}`);
             }
 
             const data = await response.json();
@@ -567,8 +581,7 @@ function initChatbot() {
         } catch (error) {
             console.error("Chatbot Error:", error);
             removeTypingIndicator();
-            // Show actual error to helping debugging
-            addMessage(`Thinking error: ${error.message}. Please try again in a moment.`, 'bot');
+            addMessage(`Thinking error: ${error.message}. Please try again later.`, 'bot');
         }
     }
 
