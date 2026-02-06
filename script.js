@@ -499,52 +499,58 @@ function initChatbot() {
     async function fetchResponse(userMessage) {
         try {
             console.log("Sending request to OpenRouter...");
-            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": CHATBOT_CONFIG.siteUrl,
-                    "X-Title": CHATBOT_CONFIG.siteTitle
-                },
-                body: JSON.stringify({
-                    "model": CHATBOT_CONFIG.model,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": `You are Virtual Vik, an friendly and professional AI assistant for Vikranth Bandaru's portfolio. 
-                            Your goal is to answer questions about Vikranth's skills, projects, and experience based ONLY on the context provided below.
-                            
-                            TONE: Professional, enthusiastic, helpful, and concise. Match the "vibe" of a tech-savvy developer.
-                            
-                            CONTEXT:
-                            ${portfolioContext}
-                            
-                            INSTRUCTIONS:
-                            - Keep answers short and engaging (under 3 sentences usually).
-                            - If asked about contact, direct them to the #contact section.
-                            - If asked about hiring, be encouraging and suggest checking his resume or contacting him.
-                            - Do not hallucinate facts not in the context. If you don't know, say "I don't see that in his portfolio, but you can ask him directly!"
-                            `
-                        },
-                        ...chatHistory.slice(-4), // Keep last 4 messages for context
-                        {
-                            "role": "user",
-                            "content": userMessage
-                        }
-                    ]
-                })
-            });
+
+            // Primary Model
+            let modelToUse = "google/gemini-2.0-flash-lite-preview-02-05:free";
+
+            const makeRequest = async (model) => {
+                return fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
+                        "Content-Type": "application/json",
+                        "HTTP-Referer": window.location.href, // Use current location to avoid CORS issues if local
+                        "X-Title": "Portfolio Chatbot"
+                    },
+                    body: JSON.stringify({
+                        "model": model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": `You are Virtual Vik, a friendly AI assistant for Vikranth Bandaru's portfolio. 
+                                Answer questions about Vikranth's projects, skills, and experience based on this context:
+                                
+                                ${portfolioContext}
+                                
+                                Keep answers concise (max 2-3 sentences). be professional but enthusiastic.`
+                            },
+                            ...chatHistory.slice(-4),
+                            {
+                                "role": "user",
+                                "content": userMessage
+                            }
+                        ]
+                    })
+                });
+            };
+
+            let response = await makeRequest(modelToUse);
+
+            // Fallback if primary fails
+            if (!response.ok) {
+                console.warn(`Primary model ${modelToUse} failed (${response.status}). Trying fallback...`);
+                modelToUse = "microsoft/phi-3-mini-128k-instruct:free"; // Fallback model
+                response = await makeRequest(modelToUse);
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error("API Error Details:", response.status, response.statusText, errorData);
-                throw new Error(`API Error: ${response.status}`);
+                console.error("API Error Details:", response.status, errorData);
+                throw new Error(`API Error: ${response.status} (${errorData.error?.message || 'Unknown'})`);
             }
 
             const data = await response.json();
             if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-                console.error("Invalid API Response:", data);
                 throw new Error("Invalid response format");
             }
 
@@ -561,7 +567,8 @@ function initChatbot() {
         } catch (error) {
             console.error("Chatbot Error:", error);
             removeTypingIndicator();
-            addMessage("Oops! I'm having trouble connecting to my brain right now. It might be a connection issue. Please try again!", 'bot');
+            // Show actual error to helping debugging
+            addMessage(`Thinking error: ${error.message}. Please try again in a moment.`, 'bot');
         }
     }
 
