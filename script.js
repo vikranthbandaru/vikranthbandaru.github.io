@@ -511,14 +511,27 @@ function initChatbot() {
             ];
 
             const makeRequest = async (model) => {
-                return fetch("https://openrouter.ai/api/v1/chat/completions", {
+                const backendUrl = window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.backendUrl : "";
+
+                let url = "https://openrouter.ai/api/v1/chat/completions";
+                let headers = {
+                    "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": window.location.href,
+                    "X-Title": "Portfolio Chatbot"
+                };
+
+                // Switch to Proxy if available
+                if (backendUrl) {
+                    url = backendUrl;
+                    headers = {
+                        "Content-Type": "application/json"
+                    };
+                }
+
+                return fetch(url, {
                     method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
-                        "Content-Type": "application/json",
-                        "HTTP-Referer": window.location.href,
-                        "X-Title": "Portfolio Chatbot"
-                    },
+                    headers: headers,
                     body: JSON.stringify({
                         "model": model,
                         "messages": [
