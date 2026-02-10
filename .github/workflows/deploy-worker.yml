@@ -1,0 +1,27 @@
+name: Deploy Chatbot Proxy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'proxy/**'
+      - 'wrangler.jsonc'
+      - '.github/workflows/deploy-worker.yml'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Worker
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          secrets: |
+            OPENROUTER_API_KEY
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
