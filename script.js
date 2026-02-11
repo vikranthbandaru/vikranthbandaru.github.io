@@ -397,6 +397,7 @@ function initChatbot() {
     const toggleBtn = document.getElementById('chatbot-toggle');
     const closeBtn = document.getElementById('chatbot-close');
     const chatWindow = document.querySelector('.chatbot-window');
+    const chatContainer = document.getElementById('chatbot-container');
     const sendBtn = document.getElementById('chatbot-send');
     const inputField = document.getElementById('chatbot-input');
     const messagesContainer = document.getElementById('chatbot-messages');
@@ -412,8 +413,11 @@ function initChatbot() {
             chatWindow.classList.toggle('hidden');
             alertBadge.style.display = 'none'; // Hide alert on open
             if (!chatWindow.classList.contains('hidden')) {
+                chatContainer.classList.add('chatbot-open');
                 setTimeout(() => inputField.focus(), 100);
                 scrollToBottom();
+            } else {
+                chatContainer.classList.remove('chatbot-open');
             }
         });
     }
@@ -421,6 +425,7 @@ function initChatbot() {
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             chatWindow.classList.add('hidden');
+            chatContainer.classList.remove('chatbot-open');
         });
     }
 
@@ -577,7 +582,13 @@ function initChatbot() {
             }
 
             if (!response || !response.ok) {
-                throw new Error(`All models failed. Last error: ${response ? response.status : 'Network Error'}`);
+                let errorDetails = response ? response.status : 'Network Error';
+                if (lastError && lastError.error) {
+                    errorDetails += ` (${lastError.error})`;
+                } else if (lastError && lastError.message) {
+                    errorDetails += ` (${lastError.message})`;
+                }
+                throw new Error(`All models failed. Last error: ${errorDetails}`);
             }
 
             const data = await response.json();
