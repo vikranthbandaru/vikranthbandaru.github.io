@@ -1,0 +1,28 @@
+name: Notify Search Engines (IndexNow)
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+      - 'proxy/**'
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    name: Ping IndexNow
+    steps:
+      - name: Notify IndexNow (Bing, Yandex, etc.)
+        run: |
+          curl -s -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "vikranthbandaru.github.io",
+              "key": "b4d2f8a1e6c9473d8e5f1a2b3c4d5e6f",
+              "keyLocation": "https://vikranthbandaru.github.io/b4d2f8a1e6c9473d8e5f1a2b3c4d5e6f.txt",
+              "urlList": [
+                "https://vikranthbandaru.github.io/"
+              ]
+            }'
+          echo "IndexNow ping sent!"
