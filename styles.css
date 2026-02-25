@@ -2141,6 +2141,35 @@ body.dark-mode .contact-item:hover {
     }
 }
 
+/* Mobile navbar layout fixes */
+@media (max-width: 768px) {
+    .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .theme-toggle {
+        order: 2;
+        margin-left: auto;
+        margin-right: 0.5rem;
+    }
+
+    .mobile-menu-toggle {
+        order: 3;
+    }
+
+    .logo {
+        order: 1;
+    }
+
+    /* Stats grid - 2 columns on mobile */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
 /* ============================================
    VIRTUAL VIK CHATBOT STYLES
    ============================================ */
