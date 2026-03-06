@@ -516,6 +516,23 @@ function initChatbot() {
                 "mistralai/mistral-7b-instruct:free"
             ];
 
+            const systemPrompt = `You are "Virtual Vik", the AI assistant on Vikranth Bandaru's portfolio website.
+
+CRITICAL RULES:
+1. ONLY answer based on the PORTFOLIO CONTEXT below. Do NOT make up information.
+2. If the context doesn't contain the answer, say "That's not covered in Vikranth's portfolio, but feel free to reach out to him directly at bandaruvikranth@gmail.com!"
+3. Keep answers concise (2-4 sentences max). Be professional, friendly, and enthusiastic.
+4. When citing experience, use exact company names, roles, and dates from the context.
+5. When asked about testimonials/what people say, quote directly from the TESTIMONIALS section.
+6. For recent/current employment, refer to the most recent entry in EXPERIENCE.
+7. Always refer to Vikranth in third person ("Vikranth", "he", "his").
+
+PORTFOLIO CONTEXT:
+${portfolioContext}
+
+END OF CONTEXT.
+Answer the user's question based ONLY on the context above.`;
+
             const makeRequest = async (model) => {
                 // Use configured backend URL (Proxy) or local secret
                 const backendUrl = CHATBOT_CONFIG.backendUrl || (window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.backendUrl : "");
@@ -544,14 +561,9 @@ function initChatbot() {
                         "messages": [
                             {
                                 "role": "system",
-                                "content": `You are Virtual Vik, a friendly AI assistant for Vikranth Bandaru's portfolio. 
-                                Answer questions about Vikranth's projects, skills, and experience based on this context:
-                                
-                                ${portfolioContext}
-                                
-                                Keep answers concise (max 2-3 sentences). be professional but enthusiastic.`
+                                "content": systemPrompt
                             },
-                            ...chatHistory.slice(-4),
+                            ...chatHistory.slice(-6),
                             {
                                 "role": "user",
                                 "content": userMessage
@@ -626,46 +638,126 @@ function initChatbot() {
 
 // Extract text from portfolio sections to build context
 function extractPortfolioContext() {
-    let context = "NAME: Vikranth Bandaru\n\n";
+    let context = "=== VIKRANTH BANDARU - PORTFOLIO CONTEXT ===\n\n";
 
     // Hero / Intro
     const heroTitle = document.querySelector('.hero-title')?.innerText || "";
-    const heroSubtitle = document.querySelector('.hero-subtitle')?.innerText || "";
-    const heroText = document.querySelector('.hero-text')?.innerText || "";
-    context += `INTRO: ${heroTitle}. ${heroSubtitle}. ${heroText}\n\n`;
+    const heroDesc = document.querySelector('.hero-description')?.innerText ||
+                     document.querySelector('.hero-subtitle')?.innerText || "";
+    context += `TITLE: ${heroTitle}\nINTRO: ${heroDesc}\n\n`;
 
     // About
-    const aboutText = document.querySelector('.about-text')?.innerText || "";
-    context += `ABOUT: ${aboutText}\n\n`;
+    const aboutLead = document.querySelector('.about-lead')?.innerText || "";
+    const aboutTexts = Array.from(document.querySelectorAll('.about-text')).map(el => el.innerText).join(' ');
+    const aboutCards = Array.from(document.querySelectorAll('.about-card')).map(card => {
+        const title = card.querySelector('h3')?.innerText || '';
+        const desc = card.querySelector('p')?.innerText || '';
+        return `${title}: ${desc}`;
+    }).join('\n  ');
+    context += `ABOUT:\n  ${aboutLead} ${aboutTexts}\n  ${aboutCards}\n\n`;
+
+    // Stats
+    const stats = Array.from(document.querySelectorAll('.stat-card')).map(card => {
+        const num = card.querySelector('.stat-number')?.innerText || '';
+        const label = card.querySelector('.stat-label')?.innerText || '';
+        return `${num} ${label}`;
+    }).join(', ');
+    if (stats) context += `KEY STATS: ${stats}\n\n`;
 
     // Skills
-    const skillTags = Array.from(document.querySelectorAll('.skill-tag')).map(tag => tag.innerText).join(", ");
-    context += `SKILLS: ${skillTags}\n\n`;
+    const skillCategories = Array.from(document.querySelectorAll('.skill-category')).map(cat => {
+        const title = cat.querySelector('.skill-category-title')?.innerText || '';
+        const tags = Array.from(cat.querySelectorAll('.skill-tag')).map(t => t.innerText).join(', ');
+        return `${title}: ${tags}`;
+    }).join('\n  ');
+    if (skillCategories) {
+        context += `SKILLS:\n  ${skillCategories}\n\n`;
+    } else {
+        const allTags = Array.from(document.querySelectorAll('.skill-tag')).map(t => t.innerText).join(', ');
+        context += `SKILLS: ${allTags}\n\n`;
+    }
 
-    // Experience
-    context += "EXPERIENCE:\n";
+    // Experience (FIXED selectors)
+    context += "WORK EXPERIENCE:\n";
     document.querySelectorAll('.experience-card').forEach(card => {
-        const role = card.querySelector('h3')?.innerText;
-        const company = card.querySelector('.company-name')?.innerText;
-        const date = card.querySelector('.experience-date')?.innerText;
-        const desc = card.querySelector('.experience-description')?.innerText;
-        if (role) context += `- ${role} at ${company} (${date}): ${desc}\n`;
+        const role = card.querySelector('.exp-title')?.innerText || card.querySelector('h3')?.innerText || '';
+        const company = card.querySelector('.exp-company')?.innerText || '';
+        const date = card.querySelector('.exp-date')?.innerText || '';
+        const highlights = Array.from(card.querySelectorAll('.exp-highlights li'))
+            .map(li => li.innerText).join('; ');
+        context += `  - ${role} at ${company} (${date}): ${highlights}\n`;
+    });
+    context += "\n";
+
+    // Education (NEW)
+    context += "EDUCATION:\n";
+    document.querySelectorAll('.education-card').forEach(card => {
+        const degree = card.querySelector('.edu-title')?.innerText || card.querySelector('h3')?.innerText || '';
+        const school = card.querySelector('.edu-institution')?.innerText || '';
+        const date = card.querySelector('.edu-date')?.innerText || '';
+        const coursework = card.querySelector('.edu-coursework')?.innerText || '';
+        const highlights = Array.from(card.querySelectorAll('.exp-highlights li, .edu-highlights li'))
+            .map(li => li.innerText).join('; ');
+        context += `  - ${degree} from ${school} (${date})`;
+        if (coursework) context += `. ${coursework}`;
+        if (highlights) context += `. Achievements: ${highlights}`;
+        context += "\n";
+    });
+    context += "\n";
+
+    // Testimonials (NEW)
+    context += "TESTIMONIALS (What people say about Vikranth):\n";
+    document.querySelectorAll('.testimonial-card').forEach(card => {
+        const name = card.querySelector('.testimonial-name')?.innerText || '';
+        const role = card.querySelector('.testimonial-role')?.innerText || '';
+        const meta = card.querySelector('.testimonial-meta')?.innerText || '';
+        const text = card.querySelector('.testimonial-text')?.innerText || '';
+        if (name && text) {
+            context += `  - ${name} (${role}${meta ? ', ' + meta : ''}): "${text}"\n`;
+        }
     });
     context += "\n";
 
     // Projects
     context += "PROJECTS:\n";
-    document.querySelectorAll('.projects .project-card').forEach(card => {
-        const title = card.querySelector('.project-title')?.innerText;
-        const desc = card.querySelector('.project-description')?.innerText;
-        const tech = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.innerText).join(", ");
-        if (title) context += `- ${title}: ${desc} (Tech: ${tech})\n`;
+    document.querySelectorAll('.project-card').forEach(card => {
+        const title = card.querySelector('.project-title')?.innerText || '';
+        const desc = card.querySelector('.project-description')?.innerText || '';
+        const tech = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.innerText).join(', ');
+        if (title) context += `  - ${title}: ${desc} (Tech: ${tech})\n`;
+    });
+    context += "\n";
+
+    // Certifications (NEW)
+    context += "CERTIFICATIONS:\n";
+    document.querySelectorAll('.certification-card').forEach(card => {
+        const title = card.querySelector('.cert-title')?.innerText || '';
+        const issuer = card.querySelector('.cert-issuer')?.innerText || '';
+        const date = card.querySelector('.cert-date')?.innerText || '';
+        if (title) context += `  - ${title} by ${issuer} (${date})\n`;
+    });
+    context += "\n";
+
+    // Publications (NEW)
+    const pubCard = document.querySelector('.publication-card');
+    if (pubCard) {
+        const pubText = pubCard.innerText || '';
+        context += `PUBLICATIONS: ${pubText}\n\n`;
+    }
+
+    // Awards (NEW)
+    context += "AWARDS:\n";
+    document.querySelectorAll('.award-card').forEach(card => {
+        const title = card.querySelector('.award-title')?.innerText || '';
+        const meta = card.querySelector('.award-meta')?.innerText || '';
+        if (title) context += `  - ${title} (${meta})\n`;
     });
     context += "\n";
 
     // Contact Info
-    context += "\nCONTACT: Email: bandaruvikranth@gmail.com. Location: New York, USA. LinkedIn: https://www.linkedin.com/in/vikranthbandaru/";
+    context += "CONTACT: Email: bandaruvikranth@gmail.com | Location: New York, USA | LinkedIn: https://www.linkedin.com/in/vikranthbandaru/ | GitHub: https://github.com/vikranthbandaru\n";
 
+    console.log("Portfolio context extracted:", context.length, "chars");
     return context;
 }
 
