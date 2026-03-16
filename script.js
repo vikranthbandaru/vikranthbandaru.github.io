@@ -516,22 +516,36 @@ function initChatbot() {
                 "mistralai/mistral-7b-instruct:free"
             ];
 
-            const systemPrompt = `You are "Virtual Vik", the AI assistant on Vikranth Bandaru's portfolio website.
+            const systemPrompt = `You are "Virtual Vik", a friendly and enthusiastic AI assistant embedded in Vikranth Bandaru's portfolio website.
 
 CRITICAL RULES:
 1. ONLY answer based on the PORTFOLIO CONTEXT below. Do NOT make up information.
-2. If the context doesn't contain the answer, say "That's not covered in Vikranth's portfolio, but feel free to reach out to him directly at bandaruvikranth@gmail.com!"
+2. If the context doesn't contain the answer, say "I don't have that info, but you can reach Vikranth directly at bandaruvikranth@gmail.com!"
 3. Keep answers concise (2-4 sentences max). Be professional, friendly, and enthusiastic.
 4. When citing experience, use exact company names, roles, and dates from the context.
 5. When asked about testimonials/what people say, quote directly from the TESTIMONIALS section.
 6. For recent/current employment, refer to the most recent entry in EXPERIENCE.
 7. Always refer to Vikranth in third person ("Vikranth", "he", "his").
+8. NEVER start responses with phrases like "Based on the portfolio context", "Based on the context provided", "According to the portfolio", or similar meta-references. Just answer the question directly and naturally as if you personally know Vikranth.
+9. Vikranth is actively looking for full-time opportunities in AI/ML and Data Science. If asked about hiring, availability, or whether he's open to work, enthusiastically confirm this and suggest reaching out via email or LinkedIn.
+10. If asked about his background, mention he's a recent graduate with a Master's degree in Artificial Intelligence from University at Buffalo - SUNY with a strong foundation in AI/ML, and highlight his relevant internships, Full-time experience and projects.
+11. If asked about his skills, mention his proficiency in Python, Java, C++, SQL, Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, and Data Science.
+12. If asked about his projects, highlight his relevant projects from the projects section.
+13. If asked about his internships, highlight his relevant internships from the Experience section.
+14. If asked about his full-time experience, highlight his relevant full-time experience from the Experience section.
+15. If asked about his education, highlight his relevant education from the Education section.
+16. If asked about his certifications, highlight his relevant certifications from the Certifications section.
+17. If asked about his volunteering, highlight his relevant volunteering from the Volunteering section.
+18. If asked about his hackathons, highlight his relevant hackathons from the Hackathons section.
+19. If asked about his publications, highlight his relevant publications from the Publications section.
+20. If asked about his awards, highlight his relevant awards from the Awards section.
+
 
 PORTFOLIO CONTEXT:
 ${portfolioContext}
 
 END OF CONTEXT.
-Answer the user's question based ONLY on the context above.`;
+Answer naturally and directly. Never reference "the portfolio" or "the context" in your responses.`;
 
             const makeRequest = async (model) => {
                 // Use configured backend URL (Proxy) or local secret
@@ -643,7 +657,7 @@ function extractPortfolioContext() {
     // Hero / Intro
     const heroTitle = document.querySelector('.hero-title')?.innerText || "";
     const heroDesc = document.querySelector('.hero-description')?.innerText ||
-                     document.querySelector('.hero-subtitle')?.innerText || "";
+        document.querySelector('.hero-subtitle')?.innerText || "";
     context += `TITLE: ${heroTitle}\nINTRO: ${heroDesc}\n\n`;
 
     // About
@@ -754,8 +768,9 @@ function extractPortfolioContext() {
     });
     context += "\n";
 
-    // Contact Info
-    context += "CONTACT: Email: bandaruvikranth@gmail.com | Location: New York, USA | LinkedIn: https://www.linkedin.com/in/vikranthbandaru/ | GitHub: https://github.com/vikranthbandaru\n";
+    // Contact Info + Availability
+    const contactIntro = document.querySelector('.contact-intro')?.innerText || '';
+    context += `AVAILABILITY & CONTACT: ${contactIntro} | Email: bandaruvikranth@gmail.com | Location: New York, USA | LinkedIn: https://www.linkedin.com/in/vikranthbandaru/ | GitHub: https://github.com/vikranthbandaru\n`;
 
     console.log("Portfolio context extracted:", context.length, "chars");
     return context;
