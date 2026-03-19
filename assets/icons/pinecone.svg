@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M12 1.5l-3.5 3.5L12 8.5l3.5-3.5L12 1.5z" fill="#000"/>
+  <path d="M7 5l-3.5 3.5L7 12l3.5-3.5L7 5z" fill="#000" opacity=".7"/>
+  <path d="M17 5l-3.5 3.5L17 12l3.5-3.5L17 5z" fill="#000" opacity=".7"/>
+  <path d="M12 8.5L8.5 12 12 15.5 15.5 12 12 8.5z" fill="#000" opacity=".85"/>
+  <path d="M7 12l-3.5 3.5L7 19l3.5-3.5L7 12z" fill="#000" opacity=".55"/>
+  <path d="M17 12l-3.5 3.5L17 19l3.5-3.5L17 12z" fill="#000" opacity=".55"/>
+  <path d="M12 15.5L8.5 19 12 22.5 15.5 19 12 15.5z" fill="#000" opacity=".4"/>
+</svg>
