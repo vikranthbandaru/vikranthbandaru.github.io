@@ -1056,8 +1056,21 @@ body.dark-mode .skill-icon-item:hover {
 /* === PROJECTS SECTION === */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-xl);
+    align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .project-card {
@@ -1107,7 +1120,6 @@ body.dark-mode .skill-icon-item:hover {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
     font-size: 0.95rem;
-    flex-grow: 1;
     line-height: 1.6;
 }
 
@@ -1137,6 +1149,9 @@ body.dark-mode .skill-icon-item:hover {
     margin-top: auto;
     padding-top: var(--spacing-sm);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
 }
 
 .project-link {
