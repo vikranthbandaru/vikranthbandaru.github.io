@@ -912,7 +912,7 @@ body.dark-mode .skill-icon-item:hover {
 
 .exp-header {
     display: flex;
-    align-items: flex-start;
+    
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-md);
 }
@@ -1004,7 +1004,7 @@ body.dark-mode .skill-icon-item:hover {
 
 .edu-header {
     display: flex;
-    align-items: flex-start;
+    
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-md);
 }
@@ -1058,7 +1058,7 @@ body.dark-mode .skill-icon-item:hover {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-xl);
-    align-items: flex-start;
+    
 }
 
 @media (max-width: 1024px) {
@@ -1123,6 +1123,8 @@ body.dark-mode .skill-icon-item:hover {
     line-height: 1.6;
 }
 
+
+
 .project-tech {
     display: flex;
     flex-wrap: wrap;
@@ -1147,7 +1149,8 @@ body.dark-mode .skill-icon-item:hover {
 
 .project-links {
     margin-top: auto;
-    padding-top: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     gap: var(--spacing-md);
@@ -1197,7 +1200,7 @@ body.dark-mode .skill-icon-item:hover {
 
 .cert-header {
     display: flex;
-    align-items: flex-start;
+    
     gap: var(--spacing-md);
 }
 
@@ -2796,4 +2799,19 @@ body.dark-mode #chatbot-input {
         right: 1.5rem;
         z-index: 9999;
     }
+}
+/* Project Features List */
+.project-features {
+    margin-top: 8px;
+    padding-left: 20px;
+    list-style-type: disc;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.project-features li {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+.project-features strong {
+    color: var(--text-dark);
 }
