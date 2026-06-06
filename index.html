@@ -1453,7 +1453,19 @@
         <!-- Chatbot Toggle Button -->
         <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open Virtual Vik Chatbot">
             <div class="toggle-icon-wrapper">
-                <img src="assets/virtual_vik_avatar.png" alt="Chat" class="chatbot-toggle-avatar">
+                <svg class="chatbot-toggle-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="rgba(255,255,255,0.15)"/>
+                    <path d="M12 4a2 2 0 100 4 2 2 0 000-4z" fill="white"/>
+                    <path d="M7 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="white" opacity="0.9"/>
+                    <path d="M17 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="white" opacity="0.9"/>
+                    <path d="M9 16a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="white" opacity="0.8"/>
+                    <path d="M15 16a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="white" opacity="0.8"/>
+                    <line x1="12" y1="8" x2="7" y2="10" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="12" y1="8" x2="17" y2="10" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="7" y1="13" x2="9" y2="16" stroke="white" stroke-width="1.5" opacity="0.4"/>
+                    <line x1="17" y1="13" x2="15" y2="16" stroke="white" stroke-width="1.5" opacity="0.4"/>
+                    <line x1="12" y1="8" x2="12" y2="14" stroke="white" stroke-width="1.5" opacity="0.3"/>
+                </svg>
             </div>
             <span class="chatbot-alert">1</span>
         </button>
@@ -1486,9 +1498,8 @@
                 <!-- Initial Welcome Message -->
                 <div class="message bot-message">
                     <div class="message-content">
-                        Hello! I'm Portfolio Bot, Vikranth's virtual assistant. Ask me about his projects, experience,
-                        or skills!
-                        <a href="#contact" class="chatbot-contact-link" onclick="closeChatbot()">Contact Vikranth →</a>
+                        Hey there! 👋 I'm <strong>Virtual Vik</strong>, Vikranth's AI assistant. I know everything about his skills, projects, and experience. What would you like to know?
+                        <a href="#contact" class="chatbot-contact-link" onclick="closeChatbot()">Or contact him directly →</a>
                     </div>
                     <span class="message-time">Just now</span>
                 </div>
@@ -1496,10 +1507,10 @@
 
             <!-- Suggestion Chips -->
             <div class="chatbot-suggestions">
-                <button class="suggestion-chip">How can Vikranth help me?</button>
-                <button class="suggestion-chip">Show me his latest work</button>
-                <button class="suggestion-chip">What is his tech stack?</button>
-                <button class="suggestion-chip">Can I hire him?</button>
+                <button class="suggestion-chip">💼 Work experience</button>
+                <button class="suggestion-chip">🛠️ Tech stack</button>
+                <button class="suggestion-chip">🚀 AI projects</button>
+                <button class="suggestion-chip">📩 Hire Vikranth</button>
             </div>
 
             <!-- Input Area -->

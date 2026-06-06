@@ -369,16 +369,13 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ==========================================
-// VIRTUAL VIK CHATBOT LOGIC
+// VIRTUAL VIK CHATBOT LOGIC — v2.0
 // ==========================================
 
 // Configuration
 const CHATBOT_CONFIG = {
-    // Key loaded from config.js (gitignored) - Optional if using proxy
     openRouterKey: window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.openRouterKey : "",
-    // Secured Backend Proxy (Public URL)
     backendUrl: "https://portfolio-chat-proxy.bandaruvikranth.workers.dev",
-    model: "openrouter/free", // Auto-selects best available free model
     siteUrl: window.location.href,
     siteTitle: "Vikranth Bandaru Portfolio"
 };
@@ -386,6 +383,7 @@ const CHATBOT_CONFIG = {
 // State
 let chatHistory = [];
 let portfolioContext = "";
+let isSending = false;
 
 // Initialize Chatbot when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -393,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initChatbot() {
-    // DOM Elements
     const toggleBtn = document.getElementById('chatbot-toggle');
     const closeBtn = document.getElementById('chatbot-close');
     const chatWindow = document.querySelector('.chatbot-window');
@@ -404,14 +401,14 @@ function initChatbot() {
     const suggestions = document.querySelectorAll('.suggestion-chip');
     const alertBadge = document.querySelector('.chatbot-alert');
 
-    // Extract Context
+    // Extract Context from the live DOM
     portfolioContext = extractPortfolioContext();
 
-    // Event Listeners
+    // Toggle chatbot open/close
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
             chatWindow.classList.toggle('hidden');
-            alertBadge.style.display = 'none'; // Hide alert on open
+            alertBadge.style.display = 'none';
             if (!chatWindow.classList.contains('hidden')) {
                 chatContainer.classList.add('chatbot-open');
                 setTimeout(() => inputField.focus(), 100);
@@ -441,54 +438,42 @@ function initChatbot() {
 
     suggestions.forEach(chip => {
         chip.addEventListener('click', () => {
-            const text = chip.textContent;
-            inputField.value = text;
+            inputField.value = chip.textContent.replace(/^[\u{1F4BC}\u{1F6E0}\u{FE0F}\u{1F680}\u{1F4E9}\s]+/u, '').trim();
             sendMessage();
         });
     });
 
     function sendMessage() {
         const text = inputField.value.trim();
-        if (!text) return;
+        if (!text || isSending) return;
+        isSending = true;
 
-        // Add User Message
         addMessage(text, 'user');
         inputField.value = '';
-
-        // Show Typing Indicator
+        inputField.disabled = true;
+        sendBtn.disabled = true;
         showTypingIndicator();
-
-        // Call API
         fetchResponse(text);
     }
 
     function addMessage(text, sender) {
         const div = document.createElement('div');
         div.className = `message ${sender}-message`;
-
         const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
         div.innerHTML = `
             <div class="message-content">${formatMessage(text)}</div>
             <span class="message-time">${timestamp}</span>
         `;
-
         messagesContainer.appendChild(div);
         scrollToBottom();
     }
 
     function showTypingIndicator() {
-        // Remove existing indicator if any
         removeTypingIndicator();
-
         const div = document.createElement('div');
         div.className = 'typing-indicator';
         div.id = 'typing-indicator';
-        div.innerHTML = `
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        `;
+        div.innerHTML = `<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>`;
         messagesContainer.appendChild(div);
         scrollToBottom();
     }
@@ -504,161 +489,198 @@ function initChatbot() {
         }
     }
 
-    async function fetchResponse(userMessage) {
-        try {
-            console.log("Sending request to OpenRouter...");
+    function unlockInput() {
+        isSending = false;
+        inputField.disabled = false;
+        sendBtn.disabled = false;
+        inputField.focus();
+    }
 
-            // List of free models to try in order
-            const models = [
-                "openrouter/free", // Auto-selects best available free model
-                "google/gemma-2-9b-it:free",
-                "meta-llama/llama-3.2-3b-instruct:free",
-                "mistralai/mistral-7b-instruct:free"
-            ];
+    // ── Build the system prompt ──
+    function buildSystemPrompt() {
+        return `You are "Virtual Vik", a warm and knowledgeable AI assistant on Vikranth Bandaru's portfolio website. You speak as if you personally know Vikranth.
 
-            const systemPrompt = `You are "Virtual Vik", a friendly and enthusiastic AI assistant embedded in Vikranth Bandaru's portfolio website.
+RULES:
+- Answer ONLY from the CONTEXT below. Never invent facts.
+- Be concise (3-5 sentences). Use bullet points for lists.
+- Use **bold** for emphasis. Never start with "Based on the context".
+- Refer to Vikranth in third person. Be enthusiastic but professional.
+- If you don't know, say: "I don't have that info — reach Vikranth at bandaruvikranth@gmail.com or LinkedIn!"
+- Vikranth is actively seeking full-time AI/ML roles. If asked about hiring, confirm enthusiastically.
 
-CRITICAL RULES:
-1. ONLY answer based on the PORTFOLIO CONTEXT below. Do NOT make up information.
-2. If the context doesn't contain the answer, say "I don't have that info, but you can reach Vikranth directly at bandaruvikranth@gmail.com!"
-3. Keep answers concise (2-4 sentences max). Be professional, friendly, and enthusiastic.
-4. When citing experience, use exact company names, roles, and dates from the context.
-5. When asked about testimonials/what people say, quote directly from the TESTIMONIALS section.
-6. For recent/current employment, refer to the most recent entry in EXPERIENCE.
-7. Always refer to Vikranth in third person ("Vikranth", "he", "his").
-8. NEVER start responses with phrases like "Based on the portfolio context", "Based on the context provided", "According to the portfolio", or similar meta-references. Just answer the question directly and naturally as if you personally know Vikranth.
-9. Vikranth is actively looking for full-time opportunities in AI/ML and Data Science. If asked about hiring, availability, or whether he's open to work, enthusiastically confirm this and suggest reaching out via email or LinkedIn.
-10. If asked about his background, mention he's a recent graduate with a Master's degree in Artificial Intelligence from University at Buffalo - SUNY with a strong foundation in AI/ML, and highlight his relevant internships, Full-time experience and projects.
-11. If asked about his skills, mention his proficiency in Python, Java, C++, SQL, Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, and Data Science.
-12. If asked about his projects, highlight his relevant projects from the projects section.
-13. If asked about his internships, highlight his relevant internships from the Experience section.
-14. If asked about his full-time experience, highlight his relevant full-time experience from the Experience section.
-15. If asked about his education, highlight his relevant education from the Education section.
-16. If asked about his certifications, highlight his relevant certifications from the Certifications section.
-17. If asked about his volunteering, highlight his relevant volunteering from the Volunteering section.
-18. If asked about his hackathons, highlight his relevant hackathons from the Hackathons section.
-19. If asked about his publications, highlight his relevant publications from the Publications section.
-20. If asked about his awards, highlight his relevant awards from the Awards section.
-
-
-PORTFOLIO CONTEXT:
+CONTEXT:
 ${portfolioContext}
 
-END OF CONTEXT.
-Answer naturally and directly. Never reference "the portfolio" or "the context" in your responses.`;
+Respond naturally and helpfully.`;
+    }
+
+    // ── API call with model fallback ──
+    async function fetchResponse(userMessage) {
+        try {
+            // Best free models, ordered by quality
+            const models = [
+                "google/gemini-2.5-flash:free",
+                "meta-llama/llama-4-maverick:free",
+                "google/gemma-3-27b-it:free",
+                "mistralai/mistral-small-3.1-24b-instruct:free"
+            ];
+
+            const systemPrompt = buildSystemPrompt();
 
             const makeRequest = async (model) => {
-                // Use configured backend URL (Proxy) or local secret
-                const backendUrl = CHATBOT_CONFIG.backendUrl || (window.CHATBOT_SECRETS ? window.CHATBOT_SECRETS.backendUrl : "");
+                const backendUrl = CHATBOT_CONFIG.backendUrl;
+                let url, headers;
 
-                let url = "https://openrouter.ai/api/v1/chat/completions";
-                let headers = {
-                    "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": window.location.href,
-                    "X-Title": "Portfolio Chatbot"
-                };
-
-                // Switch to Proxy if available
                 if (backendUrl) {
                     url = backendUrl;
+                    headers = { "Content-Type": "application/json" };
+                } else {
+                    url = "https://openrouter.ai/api/v1/chat/completions";
                     headers = {
-                        "Content-Type": "application/json"
+                        "Authorization": `Bearer ${CHATBOT_CONFIG.openRouterKey}`,
+                        "Content-Type": "application/json",
+                        "HTTP-Referer": window.location.href,
+                        "X-Title": "Portfolio Chatbot"
                     };
                 }
 
                 return fetch(url, {
                     method: "POST",
-                    headers: headers,
+                    headers,
                     body: JSON.stringify({
-                        "model": model,
-                        "messages": [
-                            {
-                                "role": "system",
-                                "content": systemPrompt
-                            },
-                            ...chatHistory.slice(-6),
-                            {
-                                "role": "user",
-                                "content": userMessage
-                            }
+                        model,
+                        max_tokens: 500,
+                        temperature: 0.7,
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            ...chatHistory.slice(-10),
+                            { role: "user", content: userMessage }
                         ]
                     })
                 });
             };
 
-            let response;
-            let lastError;
+            let response, lastError, lastStatus;
 
-            // Try models in sequence
             for (const model of models) {
                 try {
-                    console.log(`Trying model: ${model}`);
+                    console.log(`[VirtualVik] Trying: ${model}`);
                     response = await makeRequest(model);
 
                     if (response.ok) {
-                        break; // Success!
-                    } else {
-                        console.warn(`Model ${model} failed: ${response.status}`);
-                        lastError = await response.json().catch(() => ({}));
+                        console.log(`[VirtualVik] Success with: ${model}`);
+                        break;
                     }
+
+                    lastStatus = response.status;
+                    lastError = await response.json().catch(() => ({}));
+                    console.warn(`[VirtualVik] ${model} → ${response.status}`);
                 } catch (e) {
-                    console.error(`Network error with ${model}:`, e);
+                    console.error(`[VirtualVik] Network error (${model}):`, e);
+                    lastStatus = 0;
                 }
             }
 
             if (!response || !response.ok) {
-                let errorDetails = response ? response.status : 'Network Error';
-                if (lastError && lastError.error) {
-                    errorDetails += ` (${lastError.error})`;
-                } else if (lastError && lastError.message) {
-                    errorDetails += ` (${lastError.message})`;
+                // Differentiated error messages
+                if (lastStatus === 429) {
+                    throw { type: 'rate_limit' };
+                } else if (lastStatus === 0) {
+                    throw { type: 'network' };
+                } else {
+                    throw { type: 'server', status: lastStatus, detail: lastError };
                 }
-                throw new Error(`All models failed. Last error: ${errorDetails}`);
             }
 
             const data = await response.json();
-            if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-                throw new Error("Invalid response format");
+            if (!data.choices?.[0]?.message?.content) {
+                throw { type: 'format' };
             }
 
             const botReply = data.choices[0].message.content;
 
-            // Update History
+            // Update conversation history
             chatHistory.push({ role: "user", content: userMessage });
             chatHistory.push({ role: "assistant", content: botReply });
 
-            // Display Reply
+            // Keep history manageable
+            if (chatHistory.length > 20) {
+                chatHistory = chatHistory.slice(-16);
+            }
+
             removeTypingIndicator();
             addMessage(botReply, 'bot');
 
         } catch (error) {
-            console.error("Chatbot Error:", error);
+            console.error("[VirtualVik] Error:", error);
             removeTypingIndicator();
-            addMessage(`Thinking error: ${error.message}. Please try again later.`, 'bot');
+
+            let errorMsg;
+            if (error.type === 'rate_limit') {
+                errorMsg = "I'm getting a lot of questions right now! 😅 Please try again in a moment.";
+            } else if (error.type === 'network') {
+                errorMsg = "Looks like there's a connection issue. Please check your internet and try again.";
+            } else if (error.type === 'format') {
+                errorMsg = "I got a bit confused there. Could you rephrase your question?";
+            } else {
+                errorMsg = "Something went wrong on my end. Try again in a few seconds! 🙏";
+            }
+            addMessage(errorMsg, 'bot');
+        } finally {
+            unlockInput();
         }
     }
 
-    // Helper: basic markdown-like formatting for links/bold
+    // ── Enhanced markdown-to-HTML formatter ──
     function formatMessage(text) {
         if (!text) return "";
-        // Convert URLs to links
-        text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:var(--accent-primary)">$1</a>');
-        // Convert **text** to bold
-        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        return text;
+
+        // Escape HTML first (except for bot messages we're constructing)
+        let html = text;
+
+        // Bold: **text**
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // Italic: *text* (but not inside bold)
+        html = html.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+
+        // Inline code: `code`
+        html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+        // URLs to clickable links
+        html = html.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--accent-primary)">$1</a>');
+
+        // Unordered lists: lines starting with - or *
+        html = html.replace(/^[\-\*]\s+(.+)$/gm, '<li>$1</li>');
+        html = html.replace(/((?:<li>.*<\/li>\s*)+)/g, '<ul>$1</ul>');
+
+        // Numbered lists: lines starting with 1. 2. etc.
+        html = html.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
+        // Wrap consecutive <li> not already in <ul> into <ol>
+        html = html.replace(/(?<!<\/ul>)((?:<li>.*<\/li>\s*)+)(?!<\/ul>)/g, (match) => {
+            // Only wrap if not already wrapped
+            if (!match.includes('<ul>')) return '<ol>' + match + '</ol>';
+            return match;
+        });
+
+        // Line breaks: double newline → paragraph break
+        html = html.replace(/\n{2,}/g, '<br><br>');
+        // Single newline → line break (but not inside lists)
+        html = html.replace(/(?<!<\/li>)\n(?!<)/g, '<br>');
+
+        return html;
     }
 }
 
-// Extract text from portfolio sections to build context
+// ── Extract portfolio context from the live DOM ──
 function extractPortfolioContext() {
-    let context = "=== VIKRANTH BANDARU - PORTFOLIO CONTEXT ===\n\n";
+    let context = "=== VIKRANTH BANDARU — PORTFOLIO ===\n\n";
 
-    // Hero / Intro
+    // Hero
     const heroTitle = document.querySelector('.hero-title')?.innerText || "";
     const heroDesc = document.querySelector('.hero-description')?.innerText ||
         document.querySelector('.hero-subtitle')?.innerText || "";
-    context += `TITLE: ${heroTitle}\nINTRO: ${heroDesc}\n\n`;
+    context += `NAME: ${heroTitle}\nROLE: ${heroDesc}\n\n`;
 
     // About
     const aboutLead = document.querySelector('.about-lead')?.innerText || "";
@@ -678,20 +700,30 @@ function extractPortfolioContext() {
     }).join(', ');
     if (stats) context += `KEY STATS: ${stats}\n\n`;
 
-    // Skills
-    const skillCategories = Array.from(document.querySelectorAll('.skill-category')).map(cat => {
-        const title = cat.querySelector('.skill-category-title')?.innerText || '';
-        const tags = Array.from(cat.querySelectorAll('.skill-tag')).map(t => t.innerText).join(', ');
-        return `${title}: ${tags}`;
-    }).join('\n  ');
-    if (skillCategories) {
-        context += `SKILLS:\n  ${skillCategories}\n\n`;
+    // ── SKILLS (FIXED: uses .skill-box and .skill-icon-item) ──
+    context += "TECHNICAL SKILLS:\n";
+    const skillBoxes = document.querySelectorAll('.skill-box');
+    if (skillBoxes.length > 0) {
+        skillBoxes.forEach(box => {
+            const title = box.querySelector('.skill-box-title')?.innerText || '';
+            const skills = Array.from(box.querySelectorAll('.skill-icon-item span'))
+                .map(s => s.innerText.trim())
+                .filter(s => s.length > 0)
+                .join(', ');
+            if (title && skills) context += `  ${title}: ${skills}\n`;
+        });
     } else {
-        const allTags = Array.from(document.querySelectorAll('.skill-tag')).map(t => t.innerText).join(', ');
-        context += `SKILLS: ${allTags}\n\n`;
+        // Fallback: try legacy selectors
+        const skillCategories = Array.from(document.querySelectorAll('.skill-category')).map(cat => {
+            const title = cat.querySelector('.skill-category-title')?.innerText || '';
+            const tags = Array.from(cat.querySelectorAll('.skill-tag')).map(t => t.innerText).join(', ');
+            return `${title}: ${tags}`;
+        }).join('\n  ');
+        if (skillCategories) context += `  ${skillCategories}\n`;
     }
+    context += "\n";
 
-    // Experience (FIXED selectors)
+    // Experience
     context += "WORK EXPERIENCE:\n";
     document.querySelectorAll('.experience-card').forEach(card => {
         const role = card.querySelector('.exp-title')?.innerText || card.querySelector('h3')?.innerText || '';
@@ -703,7 +735,7 @@ function extractPortfolioContext() {
     });
     context += "\n";
 
-    // Education (NEW)
+    // Education
     context += "EDUCATION:\n";
     document.querySelectorAll('.education-card').forEach(card => {
         const degree = card.querySelector('.edu-title')?.innerText || card.querySelector('h3')?.innerText || '';
@@ -719,15 +751,15 @@ function extractPortfolioContext() {
     });
     context += "\n";
 
-    // Testimonials (NEW)
-    context += "TESTIMONIALS (What people say about Vikranth):\n";
+    // Testimonials
+    context += "TESTIMONIALS:\n";
     document.querySelectorAll('.testimonial-card').forEach(card => {
         const name = card.querySelector('.testimonial-name')?.innerText || '';
         const role = card.querySelector('.testimonial-role')?.innerText || '';
-        const meta = card.querySelector('.testimonial-meta')?.innerText || '';
+        const meta = card.querySelector('.testimonial-meta, .testimonial-date')?.innerText || '';
         const text = card.querySelector('.testimonial-text')?.innerText || '';
         if (name && text) {
-            context += `  - ${name} (${role}${meta ? ', ' + meta : ''}): "${text}"\n`;
+            context += `  - ${name} (${role}${meta ? ', ' + meta : ''}): "${text.trim()}"\n`;
         }
     });
     context += "\n";
@@ -738,11 +770,17 @@ function extractPortfolioContext() {
         const title = card.querySelector('.project-title')?.innerText || '';
         const desc = card.querySelector('.project-description')?.innerText || '';
         const tech = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.innerText).join(', ');
-        if (title) context += `  - ${title}: ${desc} (Tech: ${tech})\n`;
+        const features = Array.from(card.querySelectorAll('.project-features li')).map(li => li.innerText).join('; ');
+        if (title) {
+            context += `  - ${title}: ${desc}`;
+            if (tech) context += ` | Tech: ${tech}`;
+            if (features) context += ` | Features: ${features}`;
+            context += "\n";
+        }
     });
     context += "\n";
 
-    // Certifications (NEW)
+    // Certifications
     context += "CERTIFICATIONS:\n";
     document.querySelectorAll('.certification-card').forEach(card => {
         const title = card.querySelector('.cert-title')?.innerText || '';
@@ -752,27 +790,27 @@ function extractPortfolioContext() {
     });
     context += "\n";
 
-    // Publications (NEW)
+    // Publications
     const pubCard = document.querySelector('.publication-card');
     if (pubCard) {
-        const pubText = pubCard.innerText || '';
-        context += `PUBLICATIONS: ${pubText}\n\n`;
+        context += `PUBLICATIONS: ${pubCard.innerText || ''}\n\n`;
     }
 
-    // Awards (NEW)
+    // Awards
     context += "AWARDS:\n";
     document.querySelectorAll('.award-card').forEach(card => {
         const title = card.querySelector('.award-title')?.innerText || '';
         const meta = card.querySelector('.award-meta')?.innerText || '';
-        if (title) context += `  - ${title} (${meta})\n`;
+        const desc = card.querySelector('.award-description')?.innerText || '';
+        if (title) context += `  - ${title} (${meta})${desc ? ': ' + desc.substring(0, 150) : ''}\n`;
     });
     context += "\n";
 
-    // Contact Info + Availability
+    // Contact
     const contactIntro = document.querySelector('.contact-intro')?.innerText || '';
-    context += `AVAILABILITY & CONTACT: ${contactIntro} | Email: bandaruvikranth@gmail.com | Location: New York, USA | LinkedIn: https://www.linkedin.com/in/vikranthbandaru/ | GitHub: https://github.com/vikranthbandaru\n`;
+    context += `AVAILABILITY & CONTACT: ${contactIntro} | Email: bandaruvikranth@gmail.com | Location: New York, USA | LinkedIn: linkedin.com/in/vikranthbandaru | GitHub: github.com/vikranthbandaru\n`;
 
-    console.log("Portfolio context extracted:", context.length, "chars");
+    console.log("[VirtualVik] Context extracted:", context.length, "chars");
     return context;
 }
 
