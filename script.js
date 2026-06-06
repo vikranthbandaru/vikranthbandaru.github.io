@@ -438,7 +438,7 @@ function initChatbot() {
 
     suggestions.forEach(chip => {
         chip.addEventListener('click', () => {
-            inputField.value = chip.textContent.replace(/^[\u{1F4BC}\u{1F6E0}\u{FE0F}\u{1F680}\u{1F4E9}\s]+/u, '').trim();
+            inputField.value = chip.textContent.trim();
             sendMessage();
         });
     });
@@ -517,12 +517,12 @@ Respond naturally and helpfully.`;
     // ── API call with model fallback ──
     async function fetchResponse(userMessage) {
         try {
-            // Best free models, ordered by quality
+            // Best free models available on OpenRouter (verified)
             const models = [
-                "google/gemini-2.5-flash:free",
-                "meta-llama/llama-4-maverick:free",
-                "google/gemma-3-27b-it:free",
-                "mistralai/mistral-small-3.1-24b-instruct:free"
+                "google/gemma-4-31b-it:free",
+                "meta-llama/llama-3.3-70b-instruct:free",
+                "nvidia/nemotron-3-super-120b-a12b:free",
+                "moonshotai/kimi-k2.6:free"
             ];
 
             const systemPrompt = buildSystemPrompt();
@@ -617,13 +617,13 @@ Respond naturally and helpfully.`;
 
             let errorMsg;
             if (error.type === 'rate_limit') {
-                errorMsg = "I'm getting a lot of questions right now! 😅 Please try again in a moment.";
+                errorMsg = "I'm getting a lot of questions right now. Please try again in a moment.";
             } else if (error.type === 'network') {
                 errorMsg = "Looks like there's a connection issue. Please check your internet and try again.";
             } else if (error.type === 'format') {
                 errorMsg = "I got a bit confused there. Could you rephrase your question?";
             } else {
-                errorMsg = "Something went wrong on my end. Try again in a few seconds! 🙏";
+                errorMsg = "Something went wrong on my end. Please try again in a few seconds.";
             }
             addMessage(errorMsg, 'bot');
         } finally {
