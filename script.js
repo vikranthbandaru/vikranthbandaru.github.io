@@ -502,11 +502,15 @@ function initChatbot() {
 
 RULES:
 - Answer ONLY from the CONTEXT below. Never invent facts.
-- Be concise (3-5 sentences). Use bullet points for lists.
-- Use **bold** for emphasis. Never start with "Based on the context".
+- Keep answers concise but thorough (3-6 sentences). Use bullet points for lists.
+- Use **bold** for key terms and emphasis.
+- Use clear paragraph breaks between different points.
 - Refer to Vikranth in third person. Be enthusiastic but professional.
-- If you don't know, say: "I don't have that info — reach Vikranth at bandaruvikranth@gmail.com or LinkedIn!"
-- Vikranth is actively seeking full-time AI/ML roles. If asked about hiring, confirm enthusiastically.
+- Never start with "Based on the context" or reference the context in any way.
+- If you don't know, say: "I don't have that specific info, but you can reach Vikranth directly at bandaruvikranth@gmail.com or on LinkedIn!"
+- Vikranth is currently working as a Data Scientist at Optum (contract via Insight Global). He is open to full-time AI/ML opportunities.
+- When listing skills, projects, or experience, format as a clean bulleted list.
+- Always give direct, natural answers as if chatting about someone you know well.
 
 CONTEXT:
 ${portfolioContext}
@@ -517,12 +521,13 @@ Respond naturally and helpfully.`;
     // ── API call with model fallback ──
     async function fetchResponse(userMessage) {
         try {
-            // Best free models available on OpenRouter (verified)
+            // Best free models available on OpenRouter (verified Nov 2026)
             const models = [
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "recursive/flint-v1.0:free",
                 "google/gemma-4-31b-it:free",
-                "meta-llama/llama-3.3-70b-instruct:free",
-                "nvidia/nemotron-3-super-120b-a12b:free",
-                "moonshotai/kimi-k2.6:free"
+                "google/gemma-4-26b-a4b-it:free",
+                "nvidia/nemotron-3.5-lightning:free"
             ];
 
             const systemPrompt = buildSystemPrompt();
@@ -593,11 +598,17 @@ Respond naturally and helpfully.`;
             }
 
             const data = await response.json();
-            if (!data.choices?.[0]?.message?.content) {
+            // Handle both regular content and reasoning-model responses
+            let botReply = data.choices?.[0]?.message?.content;
+            if (!botReply && data.choices?.[0]?.message?.reasoning) {
+                // Some models put response in 'reasoning' field with null content
+                botReply = data.choices[0].message.reasoning;
+            }
+            if (!botReply) {
                 throw { type: 'format' };
             }
 
-            const botReply = data.choices[0].message.content;
+            const cleanedReply = botReply;
 
             // Update conversation history
             chatHistory.push({ role: "user", content: userMessage });
@@ -609,7 +620,7 @@ Respond naturally and helpfully.`;
             }
 
             removeTypingIndicator();
-            addMessage(botReply, 'bot');
+            addMessage(cleanedReply, 'bot');
 
         } catch (error) {
             console.error("[VirtualVik] Error:", error);
@@ -635,13 +646,19 @@ Respond naturally and helpfully.`;
     function formatMessage(text) {
         if (!text) return "";
 
-        // Escape HTML first (except for bot messages we're constructing)
         let html = text;
+
+        // Strip thinking/reasoning tags if present
+        html = html.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+        html = html.replace(/^(Here'?s? (?:a |my )?thinking[\s\S]*?\n---+\n)/i, '');
+
+        // Headings: ### text -> bold text
+        html = html.replace(/^#{1,3}\s+(.+)$/gm, '<strong>$1</strong>');
 
         // Bold: **text**
         html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-        // Italic: *text* (but not inside bold)
+        // Italic: *text* (not inside bold)
         html = html.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
 
         // Inline code: `code`
@@ -650,22 +667,23 @@ Respond naturally and helpfully.`;
         // URLs to clickable links
         html = html.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--accent-primary)">$1</a>');
 
-        // Unordered lists: lines starting with - or *
-        html = html.replace(/^[\-\*]\s+(.+)$/gm, '<li>$1</li>');
+        // Unordered lists: lines starting with - or * (with optional spaces)
+        html = html.replace(/^\s*[\-\*]\s+(.+)$/gm, '<li>$1</li>');
         html = html.replace(/((?:<li>.*<\/li>\s*)+)/g, '<ul>$1</ul>');
 
         // Numbered lists: lines starting with 1. 2. etc.
-        html = html.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
-        // Wrap consecutive <li> not already in <ul> into <ol>
+        html = html.replace(/^\s*\d+\.\s+(.+)$/gm, '<li>$1</li>');
         html = html.replace(/(?<!<\/ul>)((?:<li>.*<\/li>\s*)+)(?!<\/ul>)/g, (match) => {
-            // Only wrap if not already wrapped
             if (!match.includes('<ul>')) return '<ol>' + match + '</ol>';
             return match;
         });
 
-        // Line breaks: double newline → paragraph break
+        // Horizontal rule
+        html = html.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0.5rem 0">');
+
+        // Line breaks: double newline -> paragraph break
         html = html.replace(/\n{2,}/g, '<br><br>');
-        // Single newline → line break (but not inside lists)
+        // Single newline -> line break (but not inside lists)
         html = html.replace(/(?<!<\/li>)\n(?!<)/g, '<br>');
 
         return html;
