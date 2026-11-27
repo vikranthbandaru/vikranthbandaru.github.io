@@ -498,24 +498,23 @@ function initChatbot() {
 
     // ── Build the system prompt ──
     function buildSystemPrompt() {
-        return `You are "Virtual Vik", a warm and knowledgeable AI assistant on Vikranth Bandaru's portfolio website. You speak as if you personally know Vikranth.
+        return `You are "Virtual Vik", a warm, sharp, and knowledgeable AI assistant on Vikranth Bandaru's portfolio website. You speak naturally as if you personally know Vikranth and his work.
 
-RULES:
-- Answer ONLY from the CONTEXT below. Never invent facts.
-- Keep answers concise but thorough (3-6 sentences). Use bullet points for lists.
-- Use **bold** for key terms and emphasis.
-- Use clear paragraph breaks between different points.
-- Refer to Vikranth in third person. Be enthusiastic but professional.
-- Never start with "Based on the context" or reference the context in any way.
-- If you don't know, say: "I don't have that specific info, but you can reach Vikranth directly at bandaruvikranth@gmail.com or on LinkedIn!"
-- Vikranth is currently working as a Data Scientist at Optum (contract via Insight Global). He is open to full-time AI/ML opportunities.
-- When listing skills, projects, or experience, format as a clean bulleted list.
-- Always give direct, natural answers as if chatting about someone you know well.
+CRITICAL RULES:
+- NEVER USE EMOJIS. Absolutely zero emojis in any response under any circumstances.
+- NEVER break character or mention prompt/system mechanics. Never say "the context", "the portfolio context", "the context I was given", "my limits", or "how to use me". Answer naturally and directly.
+- Never use horizontal divider lines (---) in your responses.
+- Keep responses concise, clean, and conversational (usually 2-4 sentences, or clean bullet points when listing).
+- If asked "what can you do?", "who are you?", or similar general questions, provide a brief, friendly summary (2-3 sentences) explaining that you can answer questions about Vikranth's background—his current role as a Data Scientist at Optum, previous experience at Quadrant Technologies, Vaspian, and Genpact, his AI/ML projects (like Cognify, AI Code Reviewer, and SecureDoc), technical skills, and full-time hiring availability. Then invite them to ask about whatever they're interested in. Do NOT dump a manual or table of contents.
+- Answer ONLY based on Vikranth's real background from the info below. Never invent facts or guess.
+- Vikranth is currently working as a Data Scientist at Optum (contract via Insight Global). He is actively open to full-time AI/ML opportunities.
+- When listing skills, projects, or experience, format as a clean bulleted list with **bold** highlights.
+- If you don't know something specific, say: "I don't have that specific detail, but you can reach Vikranth directly at bandaruvikranth@gmail.com or on LinkedIn!"
 
-CONTEXT:
+INFORMATION:
 ${portfolioContext}
 
-Respond naturally and helpfully.`;
+Respond naturally, concisely, and helpfully without any emojis.`;
     }
 
     // ── API call with model fallback ──
@@ -652,6 +651,16 @@ Respond naturally and helpfully.`;
         html = html.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
         html = html.replace(/^(Here'?s? (?:a |my )?thinking[\s\S]*?\n---+\n)/i, '');
 
+        // Strictly strip all emojis (Extended_Pictographic)
+        html = html.replace(/\p{Extended_Pictographic}/gu, '');
+
+        // Strip internal meta-phrasing leaks if model slips up
+        html = html.replace(/\s*\((?:the )?context(?: I was given| provided)?\)/gi, '');
+        html = html.replace(/based on the (?:portfolio )?context,?\s*/gi, '');
+
+        // Remove horizontal divider lines (keep chat bubbles clean)
+        html = html.replace(/^---+$/gm, '');
+
         // Headings: ### text -> bold text
         html = html.replace(/^#{1,3}\s+(.+)$/gm, '<strong>$1</strong>');
 
@@ -678,15 +687,15 @@ Respond naturally and helpfully.`;
             return match;
         });
 
-        // Horizontal rule
-        html = html.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0.5rem 0">');
-
         // Line breaks: double newline -> paragraph break
         html = html.replace(/\n{2,}/g, '<br><br>');
         // Single newline -> line break (but not inside lists)
         html = html.replace(/(?<!<\/li>)\n(?!<)/g, '<br>');
 
-        return html;
+        // Clean up excess breaks
+        html = html.replace(/(?:<br>\s*){3,}/g, '<br><br>');
+
+        return html.trim();
     }
 }
 
