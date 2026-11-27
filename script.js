@@ -659,7 +659,8 @@ Respond naturally, concisely, and helpfully without any emojis.`;
         html = html.replace(/based on the (?:portfolio )?context,?\s*/gi, '');
 
         // Remove horizontal divider lines (keep chat bubbles clean)
-        html = html.replace(/^---+$/gm, '');
+        html = html.replace(/(?:^|\n)\s*---+\s*(?:\n|$)/g, '\n');
+        html = html.replace(/\s*---+\s*/g, ' ');
 
         // Headings: ### text -> bold text
         html = html.replace(/^#{1,3}\s+(.+)$/gm, '<strong>$1</strong>');
